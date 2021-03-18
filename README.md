@@ -37,7 +37,7 @@ and presenter. This:
 - allows to customize behaviour (swap plain-text-inputs with custom-inputs. Enable Richtext, Latex etc.)
 
 This is a sketch of a possibilty to inject UI-Components as a dependency.
-!(Good Idea?)[https://stackoverflow.com/questions/66693915/is-it-a-good-idea-to-use-react-context-to-inject-ui-components]
+[Good Idea?](https://stackoverflow.com/questions/66693915/is-it-a-good-idea-to-use-react-context-to-inject-ui-components)
 
 ```typescript
 import { createContext, FC, useContext } from "react";
