@@ -36,6 +36,12 @@ and presenter. This:
 - makes learnblocks UI-Component agnostic (use components of your choice e.g. Material UI, Chakra UI, ...).
 - allows to customize behaviour (swap plain-text-inputs with custom-inputs. Enable Richtext, Latex etc.)
 
+### Problem
+
+How to inject atoms into the actual package?
+
+### (Bad) Solution
+
 This is a sketch of a possibilty to inject UI-Components as a dependency.
 [Good Idea?](https://stackoverflow.com/questions/66693915/is-it-a-good-idea-to-use-react-context-to-inject-ui-components)
 
