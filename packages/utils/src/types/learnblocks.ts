@@ -29,9 +29,10 @@ export interface BlockPresenterProps<
   onResult?: (result: A) => void
 }
 
-export type BlockPresenter<T extends Block> = (
-  props: BlockPresenterProps<T>,
-) => ReactElement
+export type BlockPresenter<
+  T extends Block,
+  A extends AnswerState = AnswerState
+> = (props: BlockPresenterProps<T, A>) => ReactElement
 
 export type BlockEditorProps<T extends Block> = {
   block: T

@@ -10,8 +10,14 @@ export const ShortTextAnswerEditor: BlockEditor<ShortTextAnswerBlock> = ({
   block,
   onChange,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    onChange && onChange({ ...block, text: e.currentTarget.value })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    onChange && onChange({ ...block, correctAnswer: e.currentTarget.value })
 
-  return <textarea onChange={handleChange} defaultValue={block.text} />
+  return (
+    <input
+      type="text"
+      onChange={handleChange}
+      defaultValue={block.correctAnswer}
+    />
+  )
 }
