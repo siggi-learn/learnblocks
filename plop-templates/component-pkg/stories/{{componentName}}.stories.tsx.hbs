@@ -1,9 +1,34 @@
+import { AnswerState } from "@learnblocks/utils"
 import * as React from "react"
-// import { {{capitalize componentName}}Editor, {{capitalize componentName}}Presenter } from "../src";
+import { {{properCase componentName}}Block, {{properCase componentName}}Editor, {{properCase componentName}}Presenter } from "../src";
 
 export default {
-  title: "{{capitalize componentName}}",
+  title: "{{properCase componentName}}",
   decorators: [(story: Function) => <div>{story()}</div>],
 }
 
-export const Basic = () => <h1>Hi {{capitalize componentName}}</h1>
+export const Basic = () => {
+  const [block, setBlock] = React.useState<{{properCase componentName}}Block>({
+    type: "{{componentName}}",
+    text: "hi there",
+  })
+  const [result, setResult] = React.useState<AnswerState>({})
+
+  return (
+    <div
+      style=\{{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
+      <div>
+        <{{properCase componentName}}Editor block={block} onChange={setBlock} />
+      </div>
+      <div>
+        <{{properCase componentName}}Presenter block={block} onResult={setResult} />
+      </div>
+      <div>{JSON.stringify(result)}</div>
+    </div>
+  )
+}

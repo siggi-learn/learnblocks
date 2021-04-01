@@ -1,14 +1,18 @@
 import { AnswerState } from "@learnblocks/utils"
 import * as React from "react"
-import { TextBlock, TextEditor, TextPresenter } from "../src"
+import {
+  ShortTextAnswerBlock,
+  ShortTextAnswerEditor,
+  ShortTextAnswerPresenter,
+} from "../src"
 
 export default {
-  title: "Text",
+  title: "ShortTextAnswer",
   decorators: [(story: Function) => <div>{story()}</div>],
 }
 
 export const Basic = () => {
-  const [block, setBlock] = React.useState<TextBlock>({
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
     type: "text",
     text: "hi there",
   })
@@ -23,10 +27,10 @@ export const Basic = () => {
       }}
     >
       <div>
-        <TextEditor block={block} onChange={setBlock} />
+        <ShortTextAnswerEditor block={block} onChange={setBlock} />
       </div>
       <div>
-        <TextPresenter block={block} onResult={setResult} />
+        <ShortTextAnswerPresenter block={block} onResult={setResult} />
       </div>
       <div>{JSON.stringify(result)}</div>
     </div>

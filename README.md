@@ -8,6 +8,7 @@ content.
 Enable the creation of great digital learning content though:
 
 - high quality components
+- composable (simple components)
 - great UX
 - accessibility
 
@@ -138,9 +139,10 @@ learnblocks.
 ## Add a new component
 
 Run `yarn gen:pkg` and enter a name (lowercase) and a description for the
-component you'd like to implement. Run `yarn start` to start storybook. You
-should see your component in the storybook. Edit the files generated at
-`packages/{{componentName}}/src` to implement your component.
+component you'd like to implement. Run `yarn start` to start if it was not
+already started storybook. You should see your component in the storybook. Edit
+the files generated at `packages/{{componentName}}/src` to implement your
+component.
 
 # Attribution
 

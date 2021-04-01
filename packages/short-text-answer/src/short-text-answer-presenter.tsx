@@ -4,9 +4,9 @@
 
 import { BlockPresenter } from "@learnblocks/utils"
 import * as React from "react"
-import { {{properCase componentName}}Block } from "./types"
+import { ShortTextAnswerBlock } from "./types"
 
-export const {{properCase componentName}}Presenter: BlockPresenter<{{properCase componentName}}Block> = ({
+export const ShortTextAnswerPresenter: BlockPresenter<ShortTextAnswerBlock> = ({
   block,
   onResult,
 }) => {

@@ -1,7 +1,10 @@
+import { BlockEditor } from "@learnblocks/utils"
 import * as React from "react"
+import { TextBlock } from "./types"
 
-interface TextBlock extends Learnblocks.Block {}
+export const TextEditor: BlockEditor<TextBlock> = ({ block, onChange }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    onChange && onChange({ ...block, text: e.currentTarget.value })
 
-const TextPresenter: Learnblocks.BlockPresenter<"text"> = ({ block }) => {
-  return <div dangerouslySetInnerHTML={{ __html: block.text }}></div>
+  return <textarea onChange={handleChange} defaultValue={block.text} />
 }

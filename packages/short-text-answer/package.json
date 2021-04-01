@@ -1,7 +1,7 @@
 {
-  "name": "@learnblocks/{{componentName}}",
+  "name": "@learnblocks/short-text-answer",
   "version": "1.0.0",
-  "description": "{{description}}",
+  "description": "",
   "keywords": [
     "react",
     "education",

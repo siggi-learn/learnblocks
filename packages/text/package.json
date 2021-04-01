@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Editor and Presenter for texts",
   "keywords": [
-    "theme",
-    "theming",
-    "ui mode",
-    "ui"
+    "react",
+    "education",
+    "learning"
   ],
   "author": "Malte Hecht <malte@siggi.cloud>",
   "homepage": "https://github.com/siggi-learn/learnblocks#readme",

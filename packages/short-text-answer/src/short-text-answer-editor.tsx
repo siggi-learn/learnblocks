@@ -4,9 +4,12 @@
 
 import { BlockEditor } from "@learnblocks/utils"
 import * as React from "react"
-import { {{properCase componentName}}Block } from "./types"
+import { ShortTextAnswerBlock } from "./types"
 
-export const {{properCase componentName}}Editor: BlockEditor<{{properCase componentName}}Block> = ({ block, onChange }) => {
+export const ShortTextAnswerEditor: BlockEditor<ShortTextAnswerBlock> = ({
+  block,
+  onChange,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     onChange && onChange({ ...block, text: e.currentTarget.value })
 
