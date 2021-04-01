@@ -1,0 +1,9 @@
+import * as React from "react"
+// import { {{capitalize componentName}}Editor, {{capitalize componentName}}Presenter } from "../src";
+
+export default {
+  title: "{{capitalize componentName}}",
+  decorators: [(story: Function) => <div>{story()}</div>],
+}
+
+export const Basic = () => <h1>Hi {{capitalize componentName}}</h1>
