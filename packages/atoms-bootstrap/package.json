@@ -1,12 +1,12 @@
 {
-  "name": "@learnblocks/utils",
+  "name": "@learnblocks/atoms-bootstrap",
   "version": "1.0.0",
-  "description": "Types and utilities used by all learnblocks",
+  "description": "Bootstrap Atoms for the learnblocks",
   "keywords": [
     "react",
-    "react-components",
-    "learnblocks",
-    "utils"
+    "education",
+    "learning",
+    "bootstrap"
   ],
   "author": "Malte Hecht <malte@siggi.cloud>",
   "homepage": "https://github.com/siggi-learn/learnblocks#readme",
@@ -50,7 +50,14 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@learnblocks/atoms-bootstrap": "*"
+    "@learnblocks/types": "*"
   },
-  "peerDependencies": {}
+  "devDependencies": {
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.6",
+    "react-bootstrap": "^1.5.2"
+  }
 }

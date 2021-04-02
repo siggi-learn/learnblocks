@@ -3,10 +3,12 @@
  */
 
 import { BlockEditor } from "@learnblocks/types"
+import { withAtoms } from "@learnblocks/utils"
 import * as React from "react"
 import { ShortTextAnswerBlock } from "./types"
 
-export const ShortTextAnswerEditor: BlockEditor<ShortTextAnswerBlock> = ({
+const ShortTextAnswerEditorComponent: BlockEditor<ShortTextAnswerBlock> = ({
+  atoms,
   block,
   onChange,
 }) => {
@@ -14,11 +16,12 @@ export const ShortTextAnswerEditor: BlockEditor<ShortTextAnswerBlock> = ({
     onChange && onChange({ ...block, correctAnswer: e.currentTarget.value })
 
   return (
-    <input
-      type="text"
+    <atoms.textinput
       placeholder="Richtige Antwort"
       onChange={handleChange}
       defaultValue={block.correctAnswer}
     />
   )
 }
+
+export const ShortTextAnswerEditor = withAtoms(ShortTextAnswerEditorComponent)

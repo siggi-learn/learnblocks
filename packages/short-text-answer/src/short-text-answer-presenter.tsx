@@ -3,13 +3,14 @@
  */
 
 import { BlockPresenter } from "@learnblocks/types"
+import { withAtoms } from "@learnblocks/utils"
 import * as React from "react"
 import { ShortTextAnswerAnswerState, ShortTextAnswerBlock } from "./types"
 
-export const ShortTextAnswerPresenter: BlockPresenter<
+export const ShortTextAnswerPresenterComponent: BlockPresenter<
   ShortTextAnswerBlock,
   ShortTextAnswerAnswerState
-> = ({ block, onResult, defaultAnswerState, hideFeedback }) => {
+> = ({ atoms, block, onResult, defaultAnswerState, hideFeedback }) => {
   const [
     answerState,
     setAnswerState,
@@ -22,33 +23,30 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const isCorrect = block.correctAnswer === answerState.givenAnswer
-    setAnswerState((prev) => {
-      const newAnswerState = { ...prev, isCorrect, isCompleted: true }
-      if (onResult) onResult(newAnswerState)
-      return newAnswerState
-    })
+    const newAnswerState = { ...answerState, isCorrect, isCompleted: true }
+    setAnswerState(newAnswerState)
+    if (onResult) onResult(newAnswerState)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
+    <atoms.form onSubmit={handleSubmit}>
+      <atoms.textinput
         defaultValue={answerState.givenAnswer}
         disabled={answerState.isCompleted}
         onChange={handleChange}
         placeholder="Deine Antwort"
       />
-      <input type="submit" disabled={answerState.isCompleted} />
-      {!hideFeedback && <Feedback {...answerState} />}
-    </form>
+      <atoms.submitAnswerButton
+        type="submit"
+        disabled={answerState.isCompleted}
+      />
+      {!hideFeedback && answerState.isCompleted && (
+        <atoms.correctDisplay isCorrect={answerState.isCorrect} />
+      )}
+    </atoms.form>
   )
 }
 
-const Feedback: React.FC<ShortTextAnswerAnswerState> = ({
-  isCompleted,
-  isCorrect,
-}) => {
-  if (!isCompleted) return null
-
-  return <>{isCorrect ? "Richtig!" : "Leider falsch."}</>
-}
+export const ShortTextAnswerPresenter = withAtoms(
+  ShortTextAnswerPresenterComponent,
+)

@@ -19,8 +19,10 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
       width: "100%",
     }}
   >
-    <div style={{ flexBasis: 0, flexGrow: 1 }}>{editor}</div>
-    <div style={{ flexBasis: 0, flexGrow: 1 }}>{presenter}</div>
-    <div style={{ flexBasis: 0, flexGrow: 1 }}>{JSON.stringify(result)}</div>
+    <div style={{ margin: "1rem", flexBasis: 0, flexGrow: 1 }}>{editor}</div>
+    <div style={{ margin: "1rem", flexBasis: 0, flexGrow: 1 }}>{presenter}</div>
+    <div style={{ margin: "1rem", flexBasis: 0, flexGrow: 1 }}>
+      {JSON.stringify(result)}
+    </div>
   </div>
 )

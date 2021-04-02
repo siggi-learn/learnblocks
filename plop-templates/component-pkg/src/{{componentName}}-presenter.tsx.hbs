@@ -3,10 +3,11 @@
  */
 
 import { BlockPresenter } from "@learnblocks/utils"
+import { withAtoms } from "@learnblocks/utils"
 import * as React from "react"
 import { {{properCase componentName}}Block } from "./types"
 
-export const {{properCase componentName}}Presenter: BlockPresenter<{{properCase componentName}}Block> = ({
+export const {{properCase componentName}}PresenterComponent: BlockPresenter<{{properCase componentName}}Block> = ({
   block,
   onResult,
 }) => {
@@ -14,3 +15,5 @@ export const {{properCase componentName}}Presenter: BlockPresenter<{{properCase 
 
   return <div>{block.text}</div>
 }
+
+export const {{properCase componentName}}Presenter = withAtoms({{properCase componentName}}PresenterComponent)
