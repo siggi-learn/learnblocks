@@ -14,11 +14,11 @@ export const TextAreaAtom = (props: any) => (
   <Form.Control as="textarea" {...props} />
 )
 
-export const CorrectDisplay: AtomsInterface["correctDisplay"] = ({
+export const CorrectDisplayAtom: AtomsInterface["correctDisplay"] = ({
   isCorrect,
 }) => <>{isCorrect ? "Richtig 🎉" : "Falsch 🙁"}</>
 
-export const ScoreDisplay: AtomsInterface["scoreDisplay"] = ({
+export const ScoreDisplayAtom: AtomsInterface["scoreDisplay"] = ({
   score,
   scoreMax,
 }) => (
@@ -29,8 +29,8 @@ export const ScoreDisplay: AtomsInterface["scoreDisplay"] = ({
 
 export const atoms: AtomsInterface = {
   submitAnswerButton: SubmitAnswerButtonAtom,
-  scoreDisplay: ScoreDisplay,
-  correctDisplay: CorrectDisplay,
+  scoreDisplay: ScoreDisplayAtom,
+  correctDisplay: CorrectDisplayAtom,
   form: FormAtom,
   text: TextAtom,
   textinput: TextinputAtom,
