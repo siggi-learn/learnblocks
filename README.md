@@ -22,24 +22,7 @@ Enable the creation of great digital learning content though:
 
 The whole concept of this library revolves around _Blocks_. A _Block_ is
 described by its type and an instance of a block is represented by a
-datastructure of that type. Example:
-
-```typescript
-interface IBlock {
-  type: string
-}
-
-interface IQuestionBlock extends IBlock {
-  question: string
-  modelAnswer: string
-}
-
-const question: IQuestionBlock = {
-  type: "question",
-  question: "3 + 4 =",
-  answer: "7",
-}
-```
+datastructure of that type.
 
 ### Atom
 
@@ -58,78 +41,14 @@ An _Editor_ is a react component that takes a block of a certain type as an
 input and renders a Userinterface which allows the modification of the block. It
 must be composed of atoms.
 
-```typescript
-const QuestionEditor: IBlockEditor<"question"> = ({ block, onChange }) => {
-  const atoms = useContext(AtomContext)
-  const handleQuestionChange = (question: string): void =>
-    onChange && onChange({ ...block, question })
-  const handleAnswerChange = (answer: string): void =>
-    onChange && onChange({ ...block, answer })
-
-  return (
-    <>
-      <atoms.TextArea
-        defaultValue={block.question}
-        onChange={handleQuestionChange}
-      />
-      <atoms.TextArea
-        defaultValue={block.answer}
-        onChange={handleAnswerChange}
-      />
-    </>
-  )
-}
-```
-
 ### Presenter
 
 An Presenter is a react component that takes a block of a certain type as an
 input and renders a Userinterface which allows the interaction with the block.
-The Presenter has two callbacks: `onChange` and `onSubmit`. Both callbacks take
+The Presenter has two callbacks: `onChange` and `onResult`. Both callbacks take
 the presenter state as an argument. The presenter state contains all the
 information to reinitialize the presenter and to determine if an interaction is
 completed (result).
-
-```typescript
-const QuestionPresenter: IBlockPresenter<"question"> = ({
-  block,
-  defaultState,
-  onChange,
-  onSubmit,
-}) => {
-  const atoms = useContext(AtomContext)
-  const [state, setState] = useState(defaultState)
-  const handleAnswerChange = (givenAnswer: string) => {
-    const newState = { ...state, givenAnswer }
-    setState(newState)
-    onChange && onChange(newState)
-  }
-
-  const handleSubmit = () => {
-    const isCorrect = block.answer === givenAnswer
-    const newState = {
-      ...state,
-      answerPerformance: isCorrect ? 100 : 0,
-      isCorrect,
-      isSubmitted: true,
-    }
-    setState(newState)
-    onSubmit && onSubmit(newState)
-  }
-
-  return (
-    <>
-      <atoms.Text>{block.question}</atoms.Text>
-      <atoms.TextArea
-        defaultValue={state.givenAnswer}
-        onChange={handleAnswerChange}
-        placeholder="Enter your answer"
-      />
-      <atoms.Button onClick={handleSubmit}>Submit</atoms.Button>
-    </>
-  )
-}
-```
 
 # Start Developing
 
