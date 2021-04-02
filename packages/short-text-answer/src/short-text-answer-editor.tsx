@@ -16,6 +16,7 @@ export const ShortTextAnswerEditor: BlockEditor<ShortTextAnswerBlock> = ({
   return (
     <input
       type="text"
+      placeholder="Richtige Antwort"
       onChange={handleChange}
       defaultValue={block.correctAnswer}
     />

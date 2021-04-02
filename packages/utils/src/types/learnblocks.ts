@@ -26,6 +26,7 @@ export interface BlockPresenterProps<
 > {
   block: T
   defaultAnswerState?: A
+  hideFeedback?: boolean
   onResult?: (result: A) => void
 }
 

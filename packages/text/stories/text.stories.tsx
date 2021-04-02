@@ -1,4 +1,4 @@
-import { AnswerState } from "@learnblocks/utils"
+import { AnswerState, StoryGrid } from "@learnblocks/utils"
 import * as React from "react"
 import { TextBlock, TextEditor, TextPresenter } from "../src"
 
@@ -15,20 +15,10 @@ export const Basic = () => {
   const [result, setResult] = React.useState<AnswerState>({})
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        width: "100%",
-      }}
-    >
-      <div>
-        <TextEditor block={block} onChange={setBlock} />
-      </div>
-      <div>
-        <TextPresenter block={block} onResult={setResult} />
-      </div>
-      <div>{JSON.stringify(result)}</div>
-    </div>
+    <StoryGrid
+      editor={<TextEditor block={block} onChange={setBlock} />}
+      presenter={<TextPresenter block={block} onResult={setResult} />}
+      result={result}
+    />
   )
 }

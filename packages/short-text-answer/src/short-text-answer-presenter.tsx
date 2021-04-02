@@ -9,7 +9,7 @@ import { ShortTextAnswerAnswerState, ShortTextAnswerBlock } from "./types"
 export const ShortTextAnswerPresenter: BlockPresenter<
   ShortTextAnswerBlock,
   ShortTextAnswerAnswerState
-> = ({ block, onResult, defaultAnswerState }) => {
+> = ({ block, onResult, defaultAnswerState, hideFeedback }) => {
   const [
     answerState,
     setAnswerState,
@@ -19,7 +19,8 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setAnswerState({ ...answerState, givenAnswer: e.currentTarget.value })
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const isCorrect = block.correctAnswer === answerState.givenAnswer
     setAnswerState((prev) => {
       const newAnswerState = { ...prev, isCorrect, isCompleted: true }
@@ -29,13 +30,25 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   }
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        onChange={handleChange}
         defaultValue={answerState.givenAnswer}
+        disabled={answerState.isCompleted}
+        onChange={handleChange}
+        placeholder="Deine Antwort"
       />
-      <button onClick={handleSubmit}>Abschicken</button>
-    </div>
+      <input type="submit" disabled={answerState.isCompleted} />
+      {!hideFeedback && <Feedback {...answerState} />}
+    </form>
   )
+}
+
+const Feedback: React.FC<ShortTextAnswerAnswerState> = ({
+  isCompleted,
+  isCorrect,
+}) => {
+  if (!isCompleted) return null
+
+  return <>{isCorrect ? "Richtig!" : "Leider falsch."}</>
 }
