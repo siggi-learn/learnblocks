@@ -23,7 +23,7 @@ export const ScoreDisplay: AtomsInterface["scoreDisplay"] = ({
   scoreMax,
 }) => (
   <>
-    {score} / {scoreMax} Punkten
+    {score} / {scoreMax} Punkte
   </>
 )
 
