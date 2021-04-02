@@ -1,11 +1,12 @@
 {
-  "name": "@learnblocks/short-text-answer",
+  "name": "@learnblocks/types",
   "version": "1.0.0",
-  "description": "",
+  "description": "Learnblocks types for blocks, editors and presenters",
   "keywords": [
     "react",
-    "education",
-    "learning"
+    "react-component",
+    "learnblocks",
+    "types"
   ],
   "author": "Malte Hecht <malte@siggi.cloud>",
   "homepage": "https://github.com/siggi-learn/learnblocks#readme",
@@ -48,14 +49,10 @@
     "lint:src": "eslint src --ext .ts,.tsx --config ../../.eslintrc",
     "lint:types": "tsc --noEmit"
   },
-  "dependencies": {
-    "@learnblocks/types": "*",
-    "@learnblocks/utils": "*"
-  },
   "devDependencies": {
-    "react": "^17.0.1"
+    "@types/react": "^17.0.0"
   },
   "peerDependencies": {
-    "react": ">=16.8.6"
+    "@types/react": ">=16.8.6"
   }
 }

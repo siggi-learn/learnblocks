@@ -1,4 +1,5 @@
-import { AnswerState, StoryGrid } from "@learnblocks/utils"
+import { AnswerState } from "@learnblocks/types"
+import { StoryGrid } from "@learnblocks/utils"
 import * as React from "react"
 import { TextBlock, TextEditor, TextPresenter } from "../src"
 

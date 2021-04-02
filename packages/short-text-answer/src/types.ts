@@ -1,4 +1,4 @@
-import { AnswerState, Block } from "@learnblocks/utils"
+import { AnswerState, Block } from "@learnblocks/types"
 
 export interface ShortTextAnswerBlock extends Block {
   correctAnswer: string

@@ -2,7 +2,7 @@
  * 📝 Notes for Contributors:
  */
 
-import { BlockEditor } from "@learnblocks/utils"
+import { BlockEditor } from "@learnblocks/types"
 import * as React from "react"
 import { ShortTextAnswerBlock } from "./types"
 

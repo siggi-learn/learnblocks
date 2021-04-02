@@ -2,7 +2,7 @@
  * 📝 Notes for Contributors:
  */
 
-import { BlockPresenter } from "@learnblocks/utils"
+import { BlockPresenter } from "@learnblocks/types"
 import * as React from "react"
 import { ShortTextAnswerAnswerState, ShortTextAnswerBlock } from "./types"
 

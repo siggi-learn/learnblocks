@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Types and utilities used by all learnblocks",
   "keywords": [
-    "theme",
-    "theming",
-    "ui mode",
-    "ui"
+    "react",
+    "react-components",
+    "learnblocks",
+    "utils"
   ],
   "author": "Malte Hecht <malte@siggi.cloud>",
   "homepage": "https://github.com/siggi-learn/learnblocks#readme",

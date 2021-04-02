@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import * as React from "react"
 
 /**
  * Shared interface for Blocks, Editors and Presenters
@@ -33,7 +33,7 @@ export interface BlockPresenterProps<
 export type BlockPresenter<
   T extends Block,
   A extends AnswerState = AnswerState
-> = (props: BlockPresenterProps<T, A>) => ReactElement
+> = (props: BlockPresenterProps<T, A>) => React.ReactElement
 
 export type BlockEditorProps<T extends Block> = {
   block: T
@@ -42,4 +42,4 @@ export type BlockEditorProps<T extends Block> = {
 
 export type BlockEditor<T extends Block> = (
   props: BlockEditorProps<T>,
-) => ReactElement
+) => React.ReactElement
