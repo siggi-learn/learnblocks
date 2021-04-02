@@ -2,18 +2,19 @@
  * 📝 Notes for Contributors:
  */
 
-import { BlockPresenter } from "@learnblocks/utils"
+import { BlockPresenter } from "@learnblocks/types"
 import { withAtoms } from "@learnblocks/utils"
 import * as React from "react"
 import { {{properCase componentName}}Block } from "./types"
 
 export const {{properCase componentName}}PresenterComponent: BlockPresenter<{{properCase componentName}}Block> = ({
+  atoms,
   block,
   onResult,
 }) => {
   React.useEffect(() => onResult && onResult({}), [onResult, block.text])
 
-  return <div>{block.text}</div>
+  return <atoms.text>{block.text}</atoms.text>
 }
 
 export const {{properCase componentName}}Presenter = withAtoms({{properCase componentName}}PresenterComponent)

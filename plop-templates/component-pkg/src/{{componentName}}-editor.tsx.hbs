@@ -2,16 +2,16 @@
  * 📝 Notes for Contributors:
  */
 
-import { BlockEditor } from "@learnblocks/utils"
+import { BlockEditor } from "@learnblocks/types"
 import { withAtoms } from "@learnblocks/utils"
 import * as React from "react"
 import { {{properCase componentName}}Block } from "./types"
 
-export const {{properCase componentName}}EditorComponent: BlockEditor<{{properCase componentName}}Block> = ({ block, onChange }) => {
+export const {{properCase componentName}}EditorComponent: BlockEditor<{{properCase componentName}}Block> = ({ atoms, block, onChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     onChange && onChange({ ...block, text: e.currentTarget.value })
 
-  return <textarea onChange={handleChange} defaultValue={block.text} />
+  return <atoms.textarea onChange={handleChange} defaultValue={block.text} />
 }
 
 export const {{properCase componentName}}Editor = withAtoms({{properCase componentName}}EditorComponent)
