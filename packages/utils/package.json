@@ -49,8 +49,6 @@
     "lint:src": "eslint src --ext .ts,.tsx --config ../../.eslintrc",
     "lint:types": "tsc --noEmit"
   },
-  "dependencies": {
-    "@learnblocks/atoms-bootstrap": "*"
-  },
+  "dependencies": {},
   "peerDependencies": {}
 }
