@@ -11,7 +11,10 @@ type TextInputProps = {
   onChange: (value: string) => void
 }
 
-type ResultProps = { isCorrect?: boolean; isVisible?: boolean }
+type FeedbackProps = {
+  answerState: ShortTextAnswerAnswerState
+  block: ShortTextAnswerBlock
+}
 
 export interface ShortTextAnswerEditorAtoms extends Atoms {
   textinput: React.ComponentType<TextInputProps>
@@ -21,13 +24,17 @@ export interface ShortTextAnswerPresenterAtoms extends Atoms {
   button: React.ComponentType<ButtonProps>
   form: React.ComponentType<FormProps>
   textinput: React.ComponentType<TextInputProps>
-  result: React.ComponentType<ResultProps>
+  feedback: React.ComponentType<FeedbackProps>
 }
 
 export interface ShortTextAnswerBlock extends Block {
-  correctAnswer: string
+  type: "short-text-answer"
+  correctAnswers: string[]
 }
 
 export interface ShortTextAnswerAnswerState extends AnswerState {
   givenAnswer: string
+  matchedAnswer?: string
+  isSampleSolution?: boolean
+  withTypo?: boolean
 }

@@ -18,8 +18,8 @@ export default {
 
 export const Basic = () => {
   const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
-    type: "text",
-    correctAnswer: "",
+    type: "short-text-answer",
+    correctAnswers: [],
   })
   const [result, setResult] = React.useState<ShortTextAnswerAnswerState>({
     givenAnswer: "",
@@ -49,8 +49,8 @@ export const Basic = () => {
 
 export const WithDefaultState = () => {
   const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
-    type: "text",
-    correctAnswer: "42",
+    type: "short-text-answer",
+    correctAnswers: ["42"],
   })
 
   return (

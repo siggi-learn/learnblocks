@@ -13,12 +13,24 @@ const FormAtom: ShortTextAnswerPresenterAtoms["form"] = (props) => (
   <Form className="d-flex" {...props} />
 )
 
-const ResultAtom: ShortTextAnswerPresenterAtoms["result"] = ({
-  isCorrect,
-  isVisible,
+const FeedbackAtom: ShortTextAnswerPresenterAtoms["feedback"] = ({
+  answerState: {
+    isCompleted,
+    isCorrect,
+    withTypo,
+    matchedAnswer,
+    isSampleSolution,
+  },
+  block,
 }) => (
-  <div className={classNames("mt-2 text-right", { invisible: !isVisible })}>
+  <div
+    className={classNames("mt-2 text-right", {
+      invisible: !isCompleted,
+    })}
+  >
     {isCorrect ? "Correct 🎉" : "Wrong 😖"}
+    {withTypo && `You meant "${matchedAnswer}"`}
+    {!isSampleSolution && `The sample solution is: ${block.correctAnswers[0]}`}
   </div>
 )
 
@@ -41,8 +53,8 @@ const TextInputAtom: ShortTextAnswerPresenterAtoms["textinput"] = ({
 
 export const shortTextAnswerPresenterAtoms: ShortTextAnswerPresenterAtoms = {
   as: "div",
-  form: FormAtom,
   button: ButtonAtom,
+  feedback: FeedbackAtom,
+  form: FormAtom,
   textinput: TextInputAtom,
-  result: ResultAtom,
 }

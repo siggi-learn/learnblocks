@@ -5,7 +5,7 @@
 export interface AnswerState {
   isCompleted?: boolean
   isCorrect?: boolean
-  score?: number
+  msToComplete?: number
 }
 
 export interface Block {

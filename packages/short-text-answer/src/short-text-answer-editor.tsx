@@ -11,14 +11,20 @@ export const ShortTextAnswerEditor: BlockEditor<
   ShortTextAnswerBlock
 > = ({ atoms, block, onChange }) => {
   const handleChange = (correctAnswer: string) =>
-    onChange && onChange({ ...block, correctAnswer })
+    onChange &&
+    onChange({ ...block, correctAnswers: correctAnswer.split(/\s*,\s*/) })
 
   return (
     <atoms.as>
       <atoms.textinput
         onChange={handleChange}
-        defaultValue={block.correctAnswer}
+        defaultValue={correctAnswerString(block.correctAnswers)}
       />
     </atoms.as>
   )
+}
+
+function correctAnswerString(val: string | string[]) {
+  if (Array.isArray(val)) return val.join(", ")
+  return val
 }
