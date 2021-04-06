@@ -50,7 +50,7 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@learnblocks/types": "*",
+    "@learnblocks/types": "^1.0.0",
     "classnames": "^2.3.1"
   },
   "devDependencies": {

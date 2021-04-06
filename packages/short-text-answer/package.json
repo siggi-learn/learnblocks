@@ -49,8 +49,8 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@learnblocks/types": "*",
-    "@learnblocks/utils": "*"
+    "@learnblocks/types": "^1.0.0",
+    "@learnblocks/utils": "^1.0.0"
   },
   "devDependencies": {
     "react": "^17.0.1"
