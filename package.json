@@ -1,17 +1,18 @@
 {
   "name": "@siggi/learnblocks",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/siggi-learn/learnblocks.git"
-  },
-  "author": "Malte Hecht <malte@siggi.cloud>",
-  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Composable react components for the creation and display of digital learing content.",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "commit": "git-cz",
     "start": "start-storybook -p 6006",
     "gen:pkg": "ts-node scripts/plopfile.ts"
   },
-  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siggi-learn/learnblocks.git"
+  },
   "dependencies": {
     "js-levenshtein": "^1.1.6",
     "react": "^17.0.1",
@@ -63,5 +64,17 @@
     "ts-jest": "26.4.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  }
+  },
+  "author": "Malte Hecht <malte@siggi.cloud>",
+  "license": "MIT",
+  "homepage": "https://github.com/siggi-learn/learnblocks#readme",
+  "bugs": {
+    "url": "https://github.com/siggi-learn/learnblocks/issues"
+  },
+  "keywords": [
+    "react",
+    "education",
+    "ui",
+    "learncontent"
+  ]
 }
