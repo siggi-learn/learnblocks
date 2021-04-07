@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "Composable react components for the creation and display of digital learing content.",
   "main": "dist/index.js",
+  "module": "dist/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
+    "build:watch": "watch 'yarn build && yalc push' ./src",
     "commit": "git-cz",
     "start": "start-storybook -p 6006",
     "gen:pkg": "ts-node scripts/plopfile.ts"
@@ -15,9 +21,7 @@
   },
   "dependencies": {
     "js-levenshtein": "^1.1.6",
-    "react": "^17.0.1",
-    "react-bootstrap": "^1.5.2",
-    "react-dom": "^17.0.1"
+    "react-bootstrap": "^1.5.2"
   },
   "devDependencies": {
     "@babel/cli": "7.12.10",
@@ -59,11 +63,18 @@
     "jest-watch-typeahead": "0.6.1",
     "plop": "2.7.4",
     "prettier": "^2.2.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "react-test-renderer": "^17.0.1",
     "storybook-addon-performance": "^0.13.0",
     "ts-jest": "26.4.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "watch": "^1.0.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "author": "Malte Hecht <malte@siggi.cloud>",
   "license": "MIT",
