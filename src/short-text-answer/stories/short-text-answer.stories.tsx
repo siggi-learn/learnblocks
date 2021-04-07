@@ -1,15 +1,15 @@
-import {
-  shortTextAnswerEditorAtoms,
-  shortTextAnswerPresenterAtoms,
-} from "@learnblocks/atoms-bootstrap"
-import { StoryGrid } from "@learnblocks/utils"
 import * as React from "react"
 import {
   ShortTextAnswerAnswerState,
   ShortTextAnswerBlock,
   ShortTextAnswerEditor,
   ShortTextAnswerPresenter,
-} from "../src"
+} from ".."
+import { StoryGrid } from "../../utils"
+import {
+  shortTextAnswerEditorAtoms,
+  shortTextAnswerPresenterAtoms,
+} from "../atoms"
 
 export default {
   title: "ShortTextAnswer",

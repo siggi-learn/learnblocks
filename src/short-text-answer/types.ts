@@ -1,5 +1,5 @@
-import { AnswerState, Atoms, Block } from "@learnblocks/types"
 import * as React from "react"
+import { AnswerState, Atoms, Block } from "../types"
 
 type ButtonProps = { disabled?: boolean }
 

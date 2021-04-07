@@ -5,23 +5,22 @@
 # public/
 
 node_modules/
-lerna-debug.log
 npm-debug.log
-packages/*/lib
-packages/*/.next
+/*/lib
+/*/.next
 storybook-static
-packages/*/coverage
-packages/*/dist
+/*/coverage
+/*/dist
 tooling/*/dist
-packages/*/node_modules
+/*/node_modules
 npm-debug.log*
-packages/*/.env
+/*/.env
 *.log
 *.cache
 yarn-error.log
-packages/*/.rpt2_cache
-packages/*/.rts2_cache*
-packages/*/tsconfig.tsbuildinfo
+/*/.rpt2_cache
+/*/.rts2_cache*
+/*/tsconfig.tsbuildinfo
 tsconfig.tsbuildinfo
 .next
 .idea

@@ -2,9 +2,9 @@
  * 📝 Notes for Contributors:
  */
 
-import { BlockPresenter } from "@learnblocks/types"
 import levenshtein from "js-levenshtein"
 import * as React from "react"
+import { BlockPresenter } from "../types"
 import {
   ShortTextAnswerAnswerState,
   ShortTextAnswerBlock,
@@ -26,7 +26,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
     setAnswerState({ ...answerState, givenAnswer })
 
   const handleSubmit = (event: any) => {
-    event.preventDefault()
+    event?.preventDefault()
     const { isCorrect } = calcCorrect(
       block.correctAnswers,
       answerState.givenAnswer,

@@ -1,6 +1,6 @@
-import { ShortTextAnswerEditorAtoms } from "@learnblocks/short-text-answer"
 import * as React from "react"
 import { Form } from "react-bootstrap"
+import { ShortTextAnswerEditorAtoms } from ".."
 
 const TextInputAtom: ShortTextAnswerEditorAtoms["textinput"] = ({
   onChange,

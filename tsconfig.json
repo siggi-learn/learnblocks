@@ -21,7 +21,7 @@
     "downlevelIteration": true,
     "declarationMap": true
   },
-  "include": ["packages"],
+  "include": ["src"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

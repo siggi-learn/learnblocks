@@ -1,7 +1,7 @@
-import { ShortTextAnswerPresenterAtoms } from "@learnblocks/short-text-answer"
 import classNames from "classnames"
 import * as React from "react"
 import { Button, Form } from "react-bootstrap"
+import { ShortTextAnswerPresenterAtoms } from ".."
 
 const ButtonAtom: ShortTextAnswerPresenterAtoms["button"] = (props) => (
   <Button type="submit" className="ml-2" {...props}>
