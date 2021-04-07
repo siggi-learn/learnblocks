@@ -1,5 +1,5 @@
-import { AnswerState, Block } from "@learnblocks/types"
 import * as React from "react"
+import { AnswerState, Block } from "../types"
 
 interface StoryGridProps {
   editor: React.ReactElement
