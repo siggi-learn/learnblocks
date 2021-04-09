@@ -1,66 +1,119 @@
 /**
  * 📝 Notes for Contributors:
+ *
+ * Presenter Lifecycle:
+ * (user is answering)       (show solution, state may be altered)    (interaction is completed)
+ *    [interaction]       -->              [staged]               -->         [commited]
+ *                        <--                 ⮠
  */
 
 import levenshtein from "js-levenshtein"
 import * as React from "react"
 import { BlockPresenter } from "../types"
 import {
-  ShortTextAnswerAnswerState,
   ShortTextAnswerBlock,
   ShortTextAnswerPresenterAtoms,
+  ShortTextAnswerPresenterState,
 } from "./types"
+
+export const defaultState: ShortTextAnswerPresenterState = {
+  givenAnswer: "",
+  status: "initial",
+} as const
 
 export const ShortTextAnswerPresenter: BlockPresenter<
   ShortTextAnswerPresenterAtoms,
   ShortTextAnswerBlock,
-  ShortTextAnswerAnswerState
-> = ({ atoms, block, defaultAnswerState, hideFeedback, onResult }) => {
-  const [
-    answerState,
-    setAnswerState,
-  ] = React.useState<ShortTextAnswerAnswerState>(
-    defaultAnswerState || { givenAnswer: "" },
+  ShortTextAnswerPresenterState
+> = ({
+  atoms,
+  block,
+  initialState,
+  hideFeedback,
+  onChange,
+  onStage,
+  onCommit,
+  stageRef,
+  commitRef,
+  setStateRef,
+}) => {
+  // TODO: use reducer to handle state
+  const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
+    initialState || defaultState,
   )
-  const handleChange = (givenAnswer: string) =>
-    setAnswerState({ ...answerState, givenAnswer })
+
+  React.useEffect(() => onChange && onChange(state), [onChange, state])
+
+  const handleAnswerChange = (givenAnswer: string) =>
+    setState((prev) => ({ ...prev, givenAnswer }))
+
+  const handleStage = () => {
+    setState((prev) => {
+      const result = compareAnswers(
+        block.correctAnswers,
+        state.givenAnswer,
+        block.typoDistanceMax,
+      )
+      const newState: ShortTextAnswerPresenterState = {
+        ...prev,
+        ...result,
+        status: "staged",
+      }
+      if (onStage) onStage(newState)
+
+      return newState
+    })
+  }
+
+  const handleCommit = () => {
+    setState((prev) => {
+      const newState: ShortTextAnswerPresenterState = {
+        ...prev,
+        status: "commited",
+      }
+      if (onCommit) onCommit(newState)
+
+      return newState
+    })
+  }
 
   const handleSubmit = (event: any) => {
     event?.preventDefault()
-    const { isCorrect } = calcCorrect(
-      block.correctAnswers,
-      answerState.givenAnswer,
-    )
-    const newAnswerState = { ...answerState, isCorrect, isCompleted: true }
-    setAnswerState(newAnswerState)
-    if (onResult) onResult(newAnswerState)
+    if (state.status === "initial") handleStage()
+    if (state.status === "staged") handleCommit()
   }
+
+  if (stageRef) stageRef.current = handleStage
+  if (commitRef) commitRef.current = handleCommit
+  if (setStateRef) setStateRef.current = setState
 
   return (
     <atoms.as>
       <atoms.form onSubmit={handleSubmit}>
-        <atoms.textinput
-          defaultValue={answerState.givenAnswer}
-          disabled={answerState.isCompleted}
-          onChange={handleChange}
+        <atoms.textInput
+          defaultValue={state.givenAnswer}
+          onChange={handleAnswerChange}
+          status={state.status}
         />
-        <atoms.button disabled={answerState.isCompleted} />
+        {atoms.button && <atoms.button status={state.status} />}
       </atoms.form>
-      {!hideFeedback && (
-        <atoms.feedback answerState={answerState} block={block} />
-      )}
+      {!hideFeedback && <atoms.feedback state={state} block={block} />}
     </atoms.as>
   )
 }
 
-function calcCorrect(correctAnswers: string[], givenAnswer: string) {
-  let [isCorrect, typo, matchedAnswer] = [false, false, ""]
-  const [modelAnswer, ...altAnswers] = correctAnswers
+function compareAnswers(
+  correctAnswers: string[],
+  givenAnswer: string,
+  distanceMax?: number,
+) {
+  let [isCorrect, withTypo, matchedAnswer] = [false, false, ""]
 
-  for (const correctAnswerwerStr of [modelAnswer, ...altAnswers]) {
-    ;[isCorrect, typo] = calcCorrectLevenshtein(
+  for (const correctAnswerwerStr of correctAnswers) {
+    ;[isCorrect, withTypo] = compareAnswer(
       correctAnswerwerStr,
       givenAnswer,
+      distanceMax,
     )
     if (isCorrect) {
       matchedAnswer = correctAnswerwerStr
@@ -68,23 +121,31 @@ function calcCorrect(correctAnswers: string[], givenAnswer: string) {
     }
   }
 
-  return { isCorrect, typo, modelAnswer, altAnswers, matchedAnswer }
+  // First answers in correctAnswers is considered sampleSuolution
+  const isSampleSolution = matchedAnswer === correctAnswers[0]
+
+  return { givenAnswer, isCorrect, isSampleSolution, matchedAnswer, withTypo }
 }
 
-function calcCorrectLevenshtein(
-  correctAnswer: string,
-  givenAnswer: string,
+function compareAnswer(
+  correct: string,
+  given: string,
+  distanceMax?: number,
 ): [boolean, boolean] {
-  const compCorrectAnswer = makeComparable(correctAnswer)
-  const compGivenAnswer = makeComparable(givenAnswer)
-  const d = levenshtein(compCorrectAnswer, compGivenAnswer)
+  const correctSanit = makeComparable(correct)
+  const givenSanit = makeComparable(given)
 
-  if (d <= 2) {
-    if (d === 0) return [true, false]
-    return [true, true]
+  if (distanceMax) {
+    const d = levenshtein(correctSanit, givenSanit)
+    console.log(d, distanceMax)
+    if (d <= distanceMax) {
+      if (d === 0) return [true, false]
+      return [true, true]
+    }
+    return [false, false]
   }
 
-  return [false, false]
+  return [givenSanit === correctSanit, false]
 }
 
 function makeComparable(answer: string) {

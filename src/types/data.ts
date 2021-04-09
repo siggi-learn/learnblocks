@@ -1,14 +1,13 @@
 /**
- * Shared interface for Blocks, Editors and Presenters
+ * Interfaces for data created, updated or modified by presenters and editors
  */
 
-export interface AnswerState {
-  isCompleted?: boolean
+export interface PresenterState {
+  status: "initial" | "staged" | "commited"
   isCorrect?: boolean
-  msToComplete?: number
+  msToCommit?: number
 }
 
 export interface Block {
   type: string
-  scoreMax?: number
 }

@@ -1,18 +1,18 @@
 import * as React from "react"
-import { AnswerState, Block } from "../types"
+import { Block, PresenterState } from "../types"
 
 interface StoryGridProps {
   editor: React.ReactElement
   presenter: React.ReactElement
   block: Block
-  result?: AnswerState
+  presenterState?: PresenterState
 }
 
 export const StoryGrid: React.FC<StoryGridProps> = ({
   editor,
   presenter,
   block,
-  result,
+  presenterState,
 }) => (
   <div
     style={{
@@ -42,15 +42,15 @@ export const StoryGrid: React.FC<StoryGridProps> = ({
         value={JSON.stringify(block, null, "  ")}
       />
     </div>
-    {result && (
+    {presenterState && (
       <div style={{ margin: "0.5rem", gridColumn: 2, gridRow: 2 }}>
-        <strong>Result: </strong>
+        <strong>State: </strong>
         <br />
         <textarea
           readOnly
           rows={7}
           style={{ width: "100%" }}
-          value={JSON.stringify(result, null, "  ")}
+          value={JSON.stringify(presenterState, null, "  ")}
         />
       </div>
     )}

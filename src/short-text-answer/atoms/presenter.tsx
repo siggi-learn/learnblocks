@@ -1,42 +1,44 @@
 import classNames from "classnames"
 import * as React from "react"
 import { Button, Form } from "react-bootstrap"
-import { ShortTextAnswerPresenterAtoms } from ".."
+import { ShortTextAnswerPresenterAtoms } from "../types"
 
-const ButtonAtom: ShortTextAnswerPresenterAtoms["button"] = (props) => (
-  <Button type="submit" className="ml-2" {...props}>
-    Submit
-  </Button>
-)
+const ButtonAtom: ShortTextAnswerPresenterAtoms["button"] = ({ status }) => {
+  let caption = "Check"
+  if (status === "staged") caption = "Next"
+  if (status === "commited") caption = "Done"
+
+  return (
+    <Button type="submit" className="ml-2" disabled={status === "commited"}>
+      {caption}
+    </Button>
+  )
+}
 
 const FormAtom: ShortTextAnswerPresenterAtoms["form"] = (props) => (
   <Form className="d-flex" {...props} />
 )
 
 const FeedbackAtom: ShortTextAnswerPresenterAtoms["feedback"] = ({
-  answerState: {
-    isCompleted,
-    isCorrect,
-    withTypo,
-    matchedAnswer,
-    isSampleSolution,
-  },
   block,
+  state,
 }) => (
   <div
     className={classNames("mt-2 text-right", {
-      invisible: !isCompleted,
+      invisible: state.status === "initial",
     })}
   >
-    {isCorrect ? "Correct 🎉" : "Wrong 😖"}
-    {withTypo && `You meant "${matchedAnswer}"`}
-    {!isSampleSolution && `The sample solution is: ${block.correctAnswers[0]}`}
+    {state.withTypo && `You meant "${state.matchedAnswer}"? `}
+    {state.isCorrect ? "Correct 🎉" : "Wrong 😖"}
+    {!state.isSampleSolution &&
+      `The sample solution is: ${block.correctAnswers[0]}`}
   </div>
 )
 
 const TextInputAtom: ShortTextAnswerPresenterAtoms["textinput"] = ({
+  defaultValue,
   onChange,
-  ...props
+  status,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     onChange(e.currentTarget.value)
@@ -44,9 +46,10 @@ const TextInputAtom: ShortTextAnswerPresenterAtoms["textinput"] = ({
   return (
     <Form.Control
       type="text"
+      defaultValue={defaultValue}
+      disabled={status !== "initial"}
       placeholder="Your answer"
       onChange={handleChange}
-      {...props}
     />
   )
 }
@@ -56,5 +59,5 @@ export const shortTextAnswerPresenterAtoms: ShortTextAnswerPresenterAtoms = {
   button: ButtonAtom,
   feedback: FeedbackAtom,
   form: FormAtom,
-  textinput: TextInputAtom,
+  textInput: TextInputAtom,
 }

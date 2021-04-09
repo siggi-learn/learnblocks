@@ -1,8 +1,9 @@
-import { AnswerState, Block } from "./data"
+import { MutableRefObject } from "react"
+import { Block, PresenterState } from "./data"
 
 export interface Atoms {
   as: React.ComponentType<any> | string
-  [key: string]: React.ComponentType<any> | string
+  [key: string]: React.ComponentType<any> | string | undefined
 }
 
 export type BlockEditorProps<A extends Atoms, B extends Block> = {
@@ -18,17 +19,22 @@ export type BlockEditor<A extends Atoms, B extends Block> = React.ComponentType<
 export interface BlockPresenterProps<
   A extends Atoms,
   B extends Block,
-  S extends AnswerState = AnswerState
+  S extends PresenterState = PresenterState
 > {
   atoms: A
   block: B
-  defaultAnswerState?: S
   hideFeedback?: boolean
-  onResult?: (result: S) => void
+  initialState?: S
+  onChange?: (presenterState: S) => void
+  onStage?: (presenterState: S) => void
+  onCommit?: (presenterState: S) => void
+  stageRef?: MutableRefObject<(() => void) | undefined>
+  commitRef?: MutableRefObject<(() => void) | undefined>
+  setStateRef?: MutableRefObject<((presenterState: S) => void) | undefined>
 }
 
 export type BlockPresenter<
   A extends Atoms,
   B extends Block,
-  S extends AnswerState = AnswerState
+  S extends PresenterState = PresenterState
 > = React.ComponentType<BlockPresenterProps<A, B, S>>

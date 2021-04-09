@@ -1,40 +1,64 @@
 import * as React from "react"
-import { AnswerState, Atoms, Block } from "../types"
+import { Atoms, Block, PresenterState } from "../types"
 
-type ButtonProps = { disabled?: boolean }
-
-type FormProps = { onSubmit: (event: any) => void }
-
-type TextInputProps = {
-  defaultValue: string
-  disabled?: boolean
-  onChange: (value: string) => void
-}
-
-type FeedbackProps = {
-  answerState: ShortTextAnswerAnswerState
-  block: ShortTextAnswerBlock
-}
-
-export interface ShortTextAnswerEditorAtoms extends Atoms {
-  textinput: React.ComponentType<TextInputProps>
-}
-
-export interface ShortTextAnswerPresenterAtoms extends Atoms {
-  button: React.ComponentType<ButtonProps>
-  form: React.ComponentType<FormProps>
-  textinput: React.ComponentType<TextInputProps>
-  feedback: React.ComponentType<FeedbackProps>
-}
-
+/**
+ * Data interfaces
+ */
 export interface ShortTextAnswerBlock extends Block {
   type: "short-text-answer"
   correctAnswers: string[]
+  typoDistanceMax?: number
 }
 
-export interface ShortTextAnswerAnswerState extends AnswerState {
+export interface ShortTextAnswerPresenterState extends PresenterState {
   givenAnswer: string
   matchedAnswer?: string
   isSampleSolution?: boolean
   withTypo?: boolean
+}
+
+/**
+ * Editor Atoms
+ */
+type SampleSolutionInputProps = {
+  defaultValue: string
+  onChange: (value: string) => void
+}
+
+type TypoDistanceInputProps = {
+  defaultValue: number
+  onChange: (value: number) => void
+}
+
+/**
+ * Presenter Atoms
+ */
+type ButtonProps = { status: PresenterState["status"] }
+
+type FormProps = { onSubmit: (event: any) => void }
+
+type PresenterInputProps = {
+  defaultValue: string
+  onChange: (value: string) => void
+  status: PresenterState["status"]
+}
+
+type FeedbackProps = {
+  block: ShortTextAnswerBlock
+  state: ShortTextAnswerPresenterState
+}
+
+/**
+ * Editor and Presenter Atom interfaces
+ */
+export interface ShortTextAnswerEditorAtoms extends Atoms {
+  sampleSolutionInput: React.ComponentType<SampleSolutionInputProps>
+  typoDistanceInput?: React.ComponentType<TypoDistanceInputProps>
+}
+
+export interface ShortTextAnswerPresenterAtoms extends Atoms {
+  button?: React.ComponentType<ButtonProps>
+  form: React.ComponentType<FormProps>
+  textInput: React.ComponentType<PresenterInputProps>
+  feedback: React.ComponentType<FeedbackProps>
 }

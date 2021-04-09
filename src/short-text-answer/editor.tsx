@@ -6,25 +6,43 @@ import * as React from "react"
 import { BlockEditor } from "../types"
 import { ShortTextAnswerBlock, ShortTextAnswerEditorAtoms } from "./types"
 
+export const defaultBlock: ShortTextAnswerBlock = {
+  type: "short-text-answer",
+  correctAnswers: [""],
+}
+
 export const ShortTextAnswerEditor: BlockEditor<
   ShortTextAnswerEditorAtoms,
   ShortTextAnswerBlock
 > = ({ atoms, block, onChange }) => {
-  const handleChange = (correctAnswer: string) =>
+  const handleSampleSolutionChange = (input: string) =>
     onChange &&
-    onChange({ ...block, correctAnswers: correctAnswer.split(/\s*,\s*/) })
+    onChange({ ...block, correctAnswers: parseCorrectAnswers(input) })
+
+  const handleTypoDistanceChange = (distance: number) =>
+    onChange && onChange({ ...block, typoDistanceMax: distance })
 
   return (
     <atoms.as>
-      <atoms.textinput
-        onChange={handleChange}
-        defaultValue={correctAnswerString(block.correctAnswers)}
+      <atoms.sampleSolutionInput
+        onChange={handleSampleSolutionChange}
+        defaultValue={serializeCorrectAnswers(block.correctAnswers)}
       />
+      {atoms.typoDistanceInput && (
+        <atoms.typoDistanceInput
+          onChange={handleTypoDistanceChange}
+          defaultValue={block.typoDistanceMax || 0}
+        />
+      )}
     </atoms.as>
   )
 }
 
-function correctAnswerString(val: string | string[]) {
-  if (Array.isArray(val)) return val.join(", ")
-  return val
+function parseCorrectAnswers(val: string) {
+  const correctAnswers = val.split(/\s*,\s*/)
+  return correctAnswers.filter((e) => !e.match(/^\s*$/))
+}
+
+function serializeCorrectAnswers(val: string[]) {
+  return val.join(", ")
 }
