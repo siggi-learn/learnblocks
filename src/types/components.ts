@@ -30,7 +30,9 @@ export interface BlockPresenterProps<
   onCommit?: (presenterState: S) => void
   stageRef?: MutableRefObject<(() => void) | undefined>
   commitRef?: MutableRefObject<(() => void) | undefined>
-  setStateRef?: MutableRefObject<((presenterState: S) => void) | undefined>
+  setStateRef?: MutableRefObject<
+    ((value: React.SetStateAction<S>) => void) | undefined
+  >
 }
 
 export type BlockPresenter<

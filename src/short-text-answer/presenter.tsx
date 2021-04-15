@@ -44,6 +44,10 @@ export const ShortTextAnswerPresenter: BlockPresenter<
 
   React.useEffect(() => onChange && onChange(state), [onChange, state])
 
+  const submitDisabled =
+    block.minAnswerLength !== undefined &&
+    state.givenAnswer.length < block.minAnswerLength
+
   const handleAnswerChange = (givenAnswer: string) =>
     setState((prev) => ({ ...prev, givenAnswer }))
 
@@ -83,6 +87,14 @@ export const ShortTextAnswerPresenter: BlockPresenter<
     if (state.status === "staged") handleCommit()
   }
 
+  const handleManualWasCorrect = () =>
+    setState((prev) => ({ ...prev, manuallyCorrected: true, isCorrect: true }))
+
+  const handleDontKnow = () => {
+    handleStage()
+    handleCommit()
+  }
+
   if (stageRef) stageRef.current = handleStage
   if (commitRef) commitRef.current = handleCommit
   if (setStateRef) setStateRef.current = setState
@@ -92,10 +104,22 @@ export const ShortTextAnswerPresenter: BlockPresenter<
       <atoms.form onSubmit={handleSubmit}>
         <atoms.textInput
           defaultValue={state.givenAnswer}
+          dontKnowEnabled={
+            state.givenAnswer.length <= 0 && state.status === "initial"
+          }
+          handleDontKnow={handleDontKnow}
+          manualCorrectEnabled={state.status === "staged" && !state.isCorrect}
+          handleManualCorrect={handleManualWasCorrect}
           onChange={handleAnswerChange}
           status={state.status}
         />
-        {atoms.button && <atoms.button status={state.status} />}
+        {atoms.button && (
+          <atoms.button
+            disabled={submitDisabled}
+            isCorrect={!!state.isCorrect}
+            status={state.status}
+          />
+        )}
       </atoms.form>
       {!hideFeedback && <atoms.feedback state={state} block={block} />}
     </atoms.as>
@@ -137,7 +161,6 @@ function compareAnswer(
 
   if (distanceMax) {
     const d = levenshtein(correctSanit, givenSanit)
-    console.log(d, distanceMax)
     if (d <= distanceMax) {
       if (d === 0) return [true, false]
       return [true, true]

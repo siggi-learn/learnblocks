@@ -122,3 +122,51 @@ export const ExternalStageAndCommit = () => {
     />
   )
 }
+
+export const CustomFunctionality = () => {
+  const setStateRef = React.useRef<
+    (value: React.SetStateAction<ShortTextAnswerPresenterState>) => void
+  >()
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(defaultBlock)
+  const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
+    defaultState,
+  )
+
+  const handleWasCorrectClick = () => {
+    if (setStateRef.current)
+      setStateRef.current((prev) => ({
+        ...prev,
+        isCorrect: true,
+      }))
+  }
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ShortTextAnswerEditor
+          atoms={shortTextAnswerEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <>
+          <ShortTextAnswerPresenter
+            atoms={shortTextAnswerPresenterAtoms}
+            block={block}
+            onChange={setState}
+            setStateRef={setStateRef}
+          />
+          {state.status === "staged" && !state.isCorrect && (
+            <button onClick={handleWasCorrectClick}>
+              My Answer was correct
+            </button>
+          )}
+          {state.status === "initial" && "Answer me incorrectly!"}
+        </>
+      }
+      presenterState={state}
+    />
+  )
+}

@@ -14,8 +14,29 @@ const SampleSolutionInputAtom: ShortTextAnswerEditorAtoms["sampleSolutionInput"]
       type="text"
       placeholder="Correct answer"
       onChange={handleChange}
+      className="mb-2"
       {...props}
     />
+  )
+}
+
+const MinAnswerLengthInput: ShortTextAnswerEditorAtoms["minAnswerLengthInput"] = ({
+  onChange,
+  defaultValue,
+}) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    onChange(parseInt(e.currentTarget.value, 10))
+
+  return (
+    <Form.Group controlId="minimalAnswerLength">
+      <Form.Label>Minimal answer length?</Form.Label>
+      <Form.Control
+        type="range"
+        max={10}
+        onChange={handleChange}
+        defaultValue={defaultValue}
+      />
+    </Form.Group>
   )
 }
 
@@ -27,24 +48,23 @@ const TypoDistanceInputAtom: ShortTextAnswerEditorAtoms["typoDistanceInput"] = (
     onChange(parseInt(e.currentTarget.value, 10))
 
   return (
-    <>
-      <Form.Group>
-        <Form.Label>
-          How many typos are allowed (levenshtein distance)?
-        </Form.Label>
-        <Form.Control
-          type="range"
-          max={10}
-          onChange={handleChange}
-          defaultValue={defaultValue}
-        />
-      </Form.Group>
-    </>
+    <Form.Group controlId="typos">
+      <Form.Label>
+        How many typos are allowed (levenshtein distance)?
+      </Form.Label>
+      <Form.Control
+        type="range"
+        max={10}
+        onChange={handleChange}
+        defaultValue={defaultValue}
+      />
+    </Form.Group>
   )
 }
 
 export const shortTextAnswerEditorAtoms: ShortTextAnswerEditorAtoms = {
   as: "div",
   sampleSolutionInput: SampleSolutionInputAtom,
+  minAnswerLengthInput: MinAnswerLengthInput,
   typoDistanceInput: TypoDistanceInputAtom,
 }

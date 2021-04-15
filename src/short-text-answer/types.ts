@@ -7,11 +7,13 @@ import { Atoms, Block, PresenterState } from "../types"
 export interface ShortTextAnswerBlock extends Block {
   type: "short-text-answer"
   correctAnswers: string[]
+  minAnswerLength?: number
   typoDistanceMax?: number
 }
 
 export interface ShortTextAnswerPresenterState extends PresenterState {
   givenAnswer: string
+  manuallyCorrected?: boolean
   matchedAnswer?: string
   isSampleSolution?: boolean
   withTypo?: boolean
@@ -25,7 +27,7 @@ type SampleSolutionInputProps = {
   onChange: (value: string) => void
 }
 
-type TypoDistanceInputProps = {
+type RangeInputProps = {
   defaultValue: number
   onChange: (value: number) => void
 }
@@ -33,12 +35,20 @@ type TypoDistanceInputProps = {
 /**
  * Presenter Atoms
  */
-type ButtonProps = { status: PresenterState["status"] }
+type ButtonProps = {
+  status: PresenterState["status"]
+  disabled: boolean
+  isCorrect: boolean
+}
 
 type FormProps = { onSubmit: (event: any) => void }
 
-type PresenterInputProps = {
+type TextInputProps = {
   defaultValue: string
+  dontKnowEnabled: boolean
+  handleDontKnow: () => void
+  manualCorrectEnabled: boolean
+  handleManualCorrect: () => void
   onChange: (value: string) => void
   status: PresenterState["status"]
 }
@@ -53,12 +63,13 @@ type FeedbackProps = {
  */
 export interface ShortTextAnswerEditorAtoms extends Atoms {
   sampleSolutionInput: React.ComponentType<SampleSolutionInputProps>
-  typoDistanceInput?: React.ComponentType<TypoDistanceInputProps>
+  minAnswerLengthInput?: React.ComponentType<RangeInputProps>
+  typoDistanceInput?: React.ComponentType<RangeInputProps>
 }
 
 export interface ShortTextAnswerPresenterAtoms extends Atoms {
   button?: React.ComponentType<ButtonProps>
   form: React.ComponentType<FormProps>
-  textInput: React.ComponentType<PresenterInputProps>
+  textInput: React.ComponentType<TextInputProps>
   feedback: React.ComponentType<FeedbackProps>
 }

@@ -19,6 +19,9 @@ export const ShortTextAnswerEditor: BlockEditor<
     onChange &&
     onChange({ ...block, correctAnswers: parseCorrectAnswers(input) })
 
+  const handleMinAnswerLengthChange = (distance: number) =>
+    onChange && onChange({ ...block, minAnswerLength: distance })
+
   const handleTypoDistanceChange = (distance: number) =>
     onChange && onChange({ ...block, typoDistanceMax: distance })
 
@@ -28,6 +31,12 @@ export const ShortTextAnswerEditor: BlockEditor<
         onChange={handleSampleSolutionChange}
         defaultValue={serializeCorrectAnswers(block.correctAnswers)}
       />
+      {atoms.minAnswerLengthInput && (
+        <atoms.minAnswerLengthInput
+          onChange={handleMinAnswerLengthChange}
+          defaultValue={block.minAnswerLength || 0}
+        />
+      )}
       {atoms.typoDistanceInput && (
         <atoms.typoDistanceInput
           onChange={handleTypoDistanceChange}
