@@ -46,7 +46,7 @@ export const Basic = () => {
   )
 }
 
-export const feedbackDisabled = () => {
+export const FeedbackDisabled = () => {
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
     defaultState,
   )
