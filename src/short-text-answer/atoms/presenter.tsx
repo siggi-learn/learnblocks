@@ -6,12 +6,16 @@ import { ShortTextAnswerPresenterAtoms } from "../types"
 const ButtonAtom: ShortTextAnswerPresenterAtoms["button"] = ({
   disabled,
   isCorrect,
+  feedbackDisabled,
   status,
 }) => {
   let caption = "Check"
   if (status === "staged") caption = "Next"
   if (status === "commited") caption = "Done"
-  const variant = status !== "initial" && !isCorrect ? "danger" : "success"
+  const variant =
+    status !== "initial" && !isCorrect && !feedbackDisabled
+      ? "danger"
+      : "success"
 
   return (
     <Button

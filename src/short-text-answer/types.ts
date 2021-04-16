@@ -36,9 +36,10 @@ type RangeInputProps = {
  * Presenter Atoms
  */
 type ButtonProps = {
-  status: PresenterState["status"]
   disabled: boolean
   isCorrect: boolean
+  status: PresenterState["status"]
+  feedbackDisabled: boolean
 }
 
 type FormProps = { onSubmit: (event: any) => void }

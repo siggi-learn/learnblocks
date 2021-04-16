@@ -29,7 +29,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   atoms,
   block,
   initialState,
-  hideFeedback,
+  feedbackDisabled,
   onChange,
   onStage,
   onCommit,
@@ -90,10 +90,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   const handleManualWasCorrect = () =>
     setState((prev) => ({ ...prev, manuallyCorrected: true, isCorrect: true }))
 
-  const handleDontKnow = () => {
-    handleStage()
-    handleCommit()
-  }
+  const handleDontKnow = () => handleStage()
 
   if (stageRef) stageRef.current = handleStage
   if (commitRef) commitRef.current = handleCommit
@@ -105,10 +102,15 @@ export const ShortTextAnswerPresenter: BlockPresenter<
         <atoms.textInput
           defaultValue={state.givenAnswer}
           dontKnowEnabled={
-            state.givenAnswer.length <= 0 && state.status === "initial"
+            state.status === "initial" && state.givenAnswer.length <= 0
           }
           handleDontKnow={handleDontKnow}
-          manualCorrectEnabled={state.status === "staged" && !state.isCorrect}
+          manualCorrectEnabled={
+            state.status === "staged" &&
+            !state.isCorrect &&
+            !feedbackDisabled &&
+            state.givenAnswer.length > 0
+          }
           handleManualCorrect={handleManualWasCorrect}
           onChange={handleAnswerChange}
           status={state.status}
@@ -117,11 +119,12 @@ export const ShortTextAnswerPresenter: BlockPresenter<
           <atoms.button
             disabled={submitDisabled}
             isCorrect={!!state.isCorrect}
+            feedbackDisabled={!!feedbackDisabled}
             status={state.status}
           />
         )}
+        {!feedbackDisabled && <atoms.feedback state={state} block={block} />}
       </atoms.form>
-      {!hideFeedback && <atoms.feedback state={state} block={block} />}
     </atoms.as>
   )
 }

@@ -23,7 +23,7 @@ export interface BlockPresenterProps<
 > {
   atoms: A
   block: B
-  hideFeedback?: boolean
+  feedbackDisabled?: boolean
   initialState?: S
   onChange?: (presenterState: S) => void
   onStage?: (presenterState: S) => void

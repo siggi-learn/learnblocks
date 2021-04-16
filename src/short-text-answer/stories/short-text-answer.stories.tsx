@@ -46,6 +46,38 @@ export const Basic = () => {
   )
 }
 
+export const feedbackDisabled = () => {
+  const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
+    defaultState,
+  )
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
+    type: "short-text-answer",
+    correctAnswers: ["42"],
+  })
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ShortTextAnswerEditor
+          atoms={shortTextAnswerEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ShortTextAnswerPresenter
+          atoms={shortTextAnswerPresenterAtoms}
+          block={block}
+          onChange={setState}
+          feedbackDisabled
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
+
 export const WithInitialState = () => {
   const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
     type: "short-text-answer",
