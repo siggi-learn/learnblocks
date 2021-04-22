@@ -1,7 +1,10 @@
 {
-  "name": "@siggi/learnblocks",
-  "version": "1.0.0",
+  "name": "@learnblocks/core",
+  "version": "1.0.0-alpha.1",
   "description": "Composable react components for the creation and display of digital learing content.",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "module": "dist/index.js",
   "sideEffects": false,
