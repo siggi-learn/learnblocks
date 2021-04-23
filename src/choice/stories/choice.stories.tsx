@@ -7,8 +7,8 @@ import {
 } from ".."
 import { StoryGrid } from "../../utils"
 import { choiceEditorAtoms, choicePresenterAtoms } from "../atoms"
-import { defaultBlock } from "../editor"
-import { defaultState } from "../presenter"
+import { defaultChoiceBlock } from "../editor"
+import { defaultChoiceState } from "../presenter"
 
 export default {
   title: "Choice",
@@ -16,8 +16,10 @@ export default {
 }
 
 export const Basic = () => {
-  const [block, setBlock] = React.useState<ChoiceBlock>(defaultBlock)
-  const [state, setState] = React.useState<ChoicePresenterState>(defaultState)
+  const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
 
   return (
     <StoryGrid
@@ -43,10 +45,12 @@ export const Basic = () => {
 
 export const HiddenCorrectCount = () => {
   const [block, setBlock] = React.useState<ChoiceBlock>({
-    ...defaultBlock,
+    ...defaultChoiceBlock,
     hideCorrectCount: true,
   })
-  const [state, setState] = React.useState<ChoicePresenterState>(defaultState)
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
 
   return (
     <StoryGrid
@@ -71,7 +75,7 @@ export const HiddenCorrectCount = () => {
 }
 
 // export const FeedbackDisabled = () => {
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultState)
+//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
 //   const [block, setBlock] = React.useState<ChoiceBlock>({
 //     type: "short-text-answer",
 //     correctAnswers: ["42"],
@@ -138,8 +142,8 @@ export const HiddenCorrectCount = () => {
 // export const ExternalStageAndCommit = () => {
 //   const stageRef = React.useRef<() => void>()
 //   const commitRef = React.useRef<() => void>()
-//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultBlock)
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultState)
+//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
+//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
 
 //   const handleClick = () => {
 //     if (stageRef.current) stageRef.current()
@@ -179,8 +183,8 @@ export const HiddenCorrectCount = () => {
 //   const setStateRef = React.useRef<
 //     (value: React.SetStateAction<ChoicePresenterState>) => void
 //   >()
-//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultBlock)
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultState)
+//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
+//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
 
 //   const handleWasCorrectClick = () => {
 //     if (setStateRef.current)

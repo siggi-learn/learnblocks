@@ -16,7 +16,7 @@ import {
   ShortTextAnswerPresenterState,
 } from "./types"
 
-export const defaultState: ShortTextAnswerPresenterState = {
+export const defaultShortTextAnswerState: ShortTextAnswerPresenterState = {
   givenAnswer: "",
   status: "initial",
 } as const
@@ -39,7 +39,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
 }) => {
   // TODO: use reducer to handle state
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
-    initialState || defaultState,
+    initialState || defaultShortTextAnswerState,
   )
 
   React.useEffect(() => onChange && onChange(state), [onChange, state])

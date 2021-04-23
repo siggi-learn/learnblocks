@@ -16,7 +16,7 @@ import {
   ChoicePresenterState,
 } from "./types"
 
-export const defaultState: ChoicePresenterState = {
+export const defaultChoiceState: ChoicePresenterState = {
   status: "initial",
   selectedOptionIndices: [],
 } as const
@@ -52,7 +52,7 @@ export const ChoicePresenter: BlockPresenter<
 
   // TODO: use reducer to handle state
   const [state, setState] = React.useState<ChoicePresenterState>(
-    initialState || defaultState,
+    initialState || defaultChoiceState,
   )
 
   React.useEffect(() => onChange && onChange(state), [onChange, state])

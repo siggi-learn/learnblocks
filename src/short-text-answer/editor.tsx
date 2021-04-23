@@ -6,7 +6,7 @@ import * as React from "react"
 import { BlockEditor } from "../types"
 import { ShortTextAnswerBlock, ShortTextAnswerEditorAtoms } from "./types"
 
-export const defaultBlock: ShortTextAnswerBlock = {
+export const defaultShortTextAnswerBlock: ShortTextAnswerBlock = {
   type: "short-text-answer",
   correctAnswers: [""],
 }

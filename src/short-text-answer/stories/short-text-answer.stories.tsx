@@ -10,8 +10,8 @@ import {
   shortTextAnswerEditorAtoms,
   shortTextAnswerPresenterAtoms,
 } from "../atoms"
-import { defaultBlock } from "../editor"
-import { defaultState } from "../presenter"
+import { defaultShortTextAnswerBlock } from "../editor"
+import { defaultShortTextAnswerState } from "../presenter"
 
 export default {
   title: "ShortTextAnswer",
@@ -19,9 +19,11 @@ export default {
 }
 
 export const Basic = () => {
-  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(defaultBlock)
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(
+    defaultShortTextAnswerBlock,
+  )
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
-    defaultState,
+    defaultShortTextAnswerState,
   )
 
   return (
@@ -48,7 +50,7 @@ export const Basic = () => {
 
 export const FeedbackDisabled = () => {
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
-    defaultState,
+    defaultShortTextAnswerState,
   )
   const [block, setBlock] = React.useState<ShortTextAnswerBlock>({
     type: "short-text-answer",
@@ -116,9 +118,11 @@ export const WithInitialState = () => {
 export const ExternalStageAndCommit = () => {
   const stageRef = React.useRef<() => void>()
   const commitRef = React.useRef<() => void>()
-  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(defaultBlock)
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(
+    defaultShortTextAnswerBlock,
+  )
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
-    defaultState,
+    defaultShortTextAnswerState,
   )
 
   const handleClick = () => {
@@ -159,9 +163,11 @@ export const CustomFunctionality = () => {
   const setStateRef = React.useRef<
     (value: React.SetStateAction<ShortTextAnswerPresenterState>) => void
   >()
-  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(defaultBlock)
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(
+    defaultShortTextAnswerBlock,
+  )
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
-    defaultState,
+    defaultShortTextAnswerState,
   )
 
   const handleWasCorrectClick = () => {

@@ -6,7 +6,7 @@ import * as React from "react"
 import { BlockEditor } from "../types"
 import { ChoiceBlock, ChoiceEditorAtoms, ChoiceOption } from "./types"
 
-export const defaultBlock: ChoiceBlock = {
+export const defaultChoiceBlock: ChoiceBlock = {
   type: "choice",
   hideCorrectCount: false,
   options: [
@@ -38,7 +38,6 @@ export const ChoiceEditor: BlockEditor<ChoiceEditorAtoms, ChoiceBlock> = ({
 
     const newOptions = [...block.options]
     newOptions.splice(index, 1)
-    console.log(newOptions)
     onChange({ ...block, options: newOptions })
   }
 

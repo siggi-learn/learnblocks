@@ -21,7 +21,7 @@ const OptionFormAtom: ChoiceEditorAtoms["optionForm"] = ({
         readOnly
       />
       <Form.Control
-        type="input"
+        type="text"
         value={option.content}
         onChange={handleContentChange}
       />
