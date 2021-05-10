@@ -111,14 +111,14 @@ export const ChoicePresenter: BlockPresenter<
 
   return (
     <atoms.as>
+      {atoms.feedback && (
+        <atoms.feedback
+          feedbackIsVisible={feedbackIsVisible}
+          isCorrect={!!state.isCorrect}
+          remainingSelections={remainingSelections}
+        />
+      )}
       <atoms.form onSubmit={handleSubmit}>
-        {atoms.feedback && (
-          <atoms.feedback
-            feedbackIsVisible={feedbackIsVisible}
-            isCorrect={!!state.isCorrect}
-            remainingSelections={remainingSelections}
-          />
-        )}
         {choiceOptions.map((option, index) => (
           <atoms.option
             key={index}
@@ -128,12 +128,14 @@ export const ChoicePresenter: BlockPresenter<
             {...option}
           />
         ))}
-        <atoms.submitButton
-          disabled={!!remainingSelections}
-          feedbackIsVisible={feedbackIsVisible}
-          isCorrect={!!state.isCorrect}
-          status={state.status}
-        />
+        {atoms.submitButton && (
+          <atoms.submitButton
+            disabled={!!remainingSelections}
+            feedbackIsVisible={feedbackIsVisible}
+            isCorrect={!!state.isCorrect}
+            status={state.status}
+          />
+        )}
       </atoms.form>
     </atoms.as>
   )

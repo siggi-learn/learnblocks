@@ -70,5 +70,5 @@ export interface ChoicePresenterAtoms extends Atoms {
   form: React.ComponentType<FormProps>
   feedback?: React.ComponentType<FeedbackAtomProps>
   option: React.ComponentType<OptionAtomProps>
-  submitButton: React.ComponentType<SubmitButtonProps>
+  submitButton?: React.ComponentType<SubmitButtonProps>
 }
