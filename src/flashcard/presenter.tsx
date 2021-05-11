@@ -42,8 +42,7 @@ export const FlashcardPresenter: BlockPresenter<
 
   React.useEffect(() => onChange && onChange(state), [onChange, state])
 
-  const handleFlip = () => setState((p) => ({ ...p, isFlipped: true }))
-  const handleFlipBack = () => setState((p) => ({ ...p, isFlipped: false }))
+  const handleFlip = () => setState((p) => ({ ...p, isFlipped: !p.isFlipped }))
 
   const handleStage = React.useCallback(() => {
     setState((prev) => {
@@ -58,7 +57,8 @@ export const FlashcardPresenter: BlockPresenter<
   }, [onStage])
 
   const handleRating = (rating: number) => {
-    setState((p) => ({ ...p, rating }))
+    // FIXME: Hardcoded correctness threshold? Maybe as prop?
+    setState((p) => ({ ...p, rating, isCorrect: rating >= 70 }))
     handleStage()
   }
 
@@ -80,18 +80,18 @@ export const FlashcardPresenter: BlockPresenter<
 
   return (
     <atoms.as>
-      <atoms.front
-        content={block.contentFront}
+      <atoms.card
+        contentFront={block.contentFront}
+        contentBack={block.contentBack}
+        isFlipped={state.isFlipped}
         onFlip={handleFlip}
-        visible={!state.isFlipped}
-      />
-      <atoms.back
-        content={block.contentBack}
-        onFlip={handleFlipBack}
-        visible={state.isFlipped}
       />
       {state.status === "initial" ? (
-        <atoms.rateBar onRate={handleRating} disabled={!state.isFlipped} />
+        <atoms.rateBar
+          onRate={handleRating}
+          rating={state.rating}
+          disabled={!state.isFlipped}
+        />
       ) : (
         atoms.commitButton && (
           <atoms.commitButton

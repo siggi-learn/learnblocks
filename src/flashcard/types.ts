@@ -31,14 +31,16 @@ type InputBackProps = {
 /**
  * Presenter Atoms
  */
-type CardSide = {
-  content: string
+type CardProps = {
+  contentFront: string
+  contentBack: string
+  isFlipped: boolean
   onFlip: () => void
-  visible: boolean
 }
 
 type RateBarProps = {
-  disabled?: boolean
+  disabled: boolean
+  rating?: number
   onRate: (rating: number) => void
 }
 
@@ -55,8 +57,7 @@ export interface FlashcardEditorAtoms extends Atoms {
 }
 
 export interface FlashcardPresenterAtoms extends Atoms {
-  front: React.ComponentType<CardSide>
-  back: React.ComponentType<CardSide>
+  card: React.ComponentType<CardProps>
   rateBar: React.ComponentType<RateBarProps>
   commitButton?: React.ComponentType<CommitButtonProps>
 }

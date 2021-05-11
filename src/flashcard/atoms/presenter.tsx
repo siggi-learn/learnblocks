@@ -2,20 +2,19 @@ import * as React from "react"
 import { Button, ButtonGroup } from "react-bootstrap"
 import { FlashcardPresenterAtoms } from "../types"
 
-const CardSide: FlashcardPresenterAtoms["front"] = ({
-  content,
+const Card: FlashcardPresenterAtoms["card"] = ({
+  contentFront,
+  contentBack,
+  isFlipped,
   onFlip,
-  visible,
 }) => {
-  if (!visible) return null
-
   return (
     <button
       onClick={onFlip}
       className="cursor-pointer rounded-lg shadow-sm bg-light border d-block w-100"
       style={{ minHeight: "300px", fontSize: "2rem" }}
     >
-      {content}
+      {isFlipped ? contentBack : contentFront}
     </button>
   )
 }
@@ -27,7 +26,7 @@ const RateBar: FlashcardPresenterAtoms["rateBar"] = ({ disabled, onRate }) => (
       <Button disabled={disabled} variant="danger" onClick={() => onRate(0)}>
         Bad
       </Button>
-      <Button disabled={disabled} variant="warning" onClick={() => onRate(60)}>
+      <Button disabled={disabled} variant="warning" onClick={() => onRate(70)}>
         Alright
       </Button>
       <Button disabled={disabled} variant="success" onClick={() => onRate(100)}>
@@ -52,8 +51,7 @@ const CommitButton: FlashcardPresenterAtoms["commitButton"] = ({
 
 export const flashcardPresenterAtoms: FlashcardPresenterAtoms = {
   as: "div",
-  back: CardSide,
-  front: CardSide,
+  card: Card,
   rateBar: RateBar,
   commitButton: CommitButton,
 }
