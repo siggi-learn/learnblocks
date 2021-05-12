@@ -12,9 +12,11 @@ export type BlockEditorProps<A extends Atoms, B extends Block> = {
   onChange?: (block: B) => void
 }
 
-export type BlockEditor<A extends Atoms, B extends Block> = React.ComponentType<
-  BlockEditorProps<A, B>
->
+export type BlockEditor<
+  A extends Atoms,
+  B extends Block,
+  P = unknown
+> = React.ComponentType<BlockEditorProps<A, B> & P>
 
 export interface BlockPresenterProps<
   A extends Atoms,
@@ -38,5 +40,6 @@ export interface BlockPresenterProps<
 export type BlockPresenter<
   A extends Atoms,
   B extends Block,
-  S extends PresenterState = PresenterState
-> = React.ComponentType<BlockPresenterProps<A, B, S>>
+  S extends PresenterState = PresenterState,
+  P = unknown
+> = React.ComponentType<BlockPresenterProps<A, B, S> & P>
