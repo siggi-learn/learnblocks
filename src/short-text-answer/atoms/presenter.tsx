@@ -38,7 +38,7 @@ const FeedbackAtom: ShortTextAnswerPresenterAtoms["feedback"] = ({
   state,
 }) => (
   <div
-    className={classNames("mt-2 text-right", {
+    className={classNames("my-2", {
       invisible: state.status === "initial",
     })}
   >

@@ -115,6 +115,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
           onChange={handleAnswerChange}
           status={state.status}
         />
+        {!feedbackDisabled && <atoms.feedback state={state} block={block} />}
         {atoms.button && (
           <atoms.button
             disabled={submitDisabled}
@@ -123,7 +124,6 @@ export const ShortTextAnswerPresenter: BlockPresenter<
             status={state.status}
           />
         )}
-        {!feedbackDisabled && <atoms.feedback state={state} block={block} />}
       </atoms.form>
     </atoms.as>
   )
