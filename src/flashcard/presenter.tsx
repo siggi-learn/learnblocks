@@ -23,7 +23,8 @@ export const defaultFlashcardState: FlashcardPresenterState = {
 export const FlashcardPresenter: BlockPresenter<
   FlashcardPresenterAtoms,
   FlashcardBlock,
-  FlashcardPresenterState
+  FlashcardPresenterState,
+  { correctnessThreshold?: number }
 > = ({
   atoms,
   block,
@@ -34,6 +35,7 @@ export const FlashcardPresenter: BlockPresenter<
   stageRef,
   commitRef,
   setStateRef,
+  correctnessThreshold = 60,
 }) => {
   // TODO: use reducer to handle state
   const [state, setState] = React.useState<FlashcardPresenterState>(
@@ -57,8 +59,11 @@ export const FlashcardPresenter: BlockPresenter<
   }, [onStage])
 
   const handleRating = (rating: number) => {
-    // FIXME: Hardcoded correctness threshold? Maybe as prop?
-    setState((p) => ({ ...p, rating, isCorrect: rating >= 70 }))
+    setState((p) => ({
+      ...p,
+      rating,
+      isCorrect: rating >= correctnessThreshold,
+    }))
     handleStage()
   }
 
