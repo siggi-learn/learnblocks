@@ -56,26 +56,27 @@ const OptionAtom: ChoicePresenterAtoms["option"] = ({
   )
 }
 
-const SubmitButtonAtom: ChoicePresenterAtoms["submitButton"] = ({
+const StageButtonAtom: ChoicePresenterAtoms["stageButton"] = ({ disabled }) => (
+  <Button type="submit" disabled={disabled} variant="success" className="w-100">
+    Check my Answer
+  </Button>
+)
+
+const CommitButtonAtom: ChoicePresenterAtoms["commitButton"] = ({
   disabled,
-  isCorrect,
   feedbackIsVisible,
-  status,
+  isCorrect,
 }) => {
   const variant = feedbackIsVisible && !isCorrect ? "danger" : "success"
-
-  let caption = "Check"
-  if (status === "staged") caption = "Next"
-  if (status === "commited") caption = "Done"
 
   return (
     <Button
       type="submit"
-      disabled={status === "commited" || disabled}
+      disabled={disabled}
       variant={variant}
       className="w-100"
     >
-      {caption}
+      Commit
     </Button>
   )
 }
@@ -85,5 +86,6 @@ export const choicePresenterAtoms: ChoicePresenterAtoms = {
   feedback: FeedbackAtom,
   form: FormAtom,
   option: OptionAtom,
-  submitButton: SubmitButtonAtom,
+  stageButton: StageButtonAtom,
+  commitButton: CommitButtonAtom,
 }

@@ -48,6 +48,7 @@ type CommitButtonProps = {
   isCorrect: boolean
   onClick: () => void
 }
+
 /**
  * Editor and Presenter Atom interfaces
  */

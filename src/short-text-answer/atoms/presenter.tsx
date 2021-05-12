@@ -3,28 +3,29 @@ import * as React from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { ShortTextAnswerPresenterAtoms } from "../types"
 
-const ButtonAtom: ShortTextAnswerPresenterAtoms["button"] = ({
+const StageButtonAtom: ShortTextAnswerPresenterAtoms["stageButton"] = ({
   disabled,
+}) => (
+  <Button type="submit" disabled={disabled} variant="success" className="w-100">
+    Check my Answer
+  </Button>
+)
+
+const CommitButtonAtom: ShortTextAnswerPresenterAtoms["commitButton"] = ({
+  disabled,
+  feedbackIsVisible,
   isCorrect,
-  feedbackDisabled,
-  status,
 }) => {
-  let caption = "Check"
-  if (status === "staged") caption = "Next"
-  if (status === "commited") caption = "Done"
-  const variant =
-    status !== "initial" && !isCorrect && !feedbackDisabled
-      ? "danger"
-      : "success"
+  const variant = feedbackIsVisible && !isCorrect ? "danger" : "success"
 
   return (
     <Button
       type="submit"
-      disabled={status === "commited" || disabled}
+      disabled={disabled}
       variant={variant}
       className="w-100"
     >
-      {caption}
+      Commit
     </Button>
   )
 }
@@ -103,8 +104,9 @@ const TextInputAtom: ShortTextAnswerPresenterAtoms["textInput"] = ({
 
 export const shortTextAnswerPresenterAtoms: ShortTextAnswerPresenterAtoms = {
   as: "div",
-  button: ButtonAtom,
   feedback: FeedbackAtom,
   form: FormAtom,
   textInput: TextInputAtom,
+  stageButton: StageButtonAtom,
+  commitButton: CommitButtonAtom,
 }

@@ -51,11 +51,14 @@ type OptionAtomProps = {
   feedbackIsVisible: boolean
 }
 
-type SubmitButtonProps = {
+type StageButtonProps = {
   disabled: boolean
-  isCorrect: boolean
-  status: PresenterState["status"]
+}
+
+type CommitButtonProps = {
+  disabled: boolean
   feedbackIsVisible: boolean
+  isCorrect: boolean
 }
 
 /**
@@ -70,5 +73,6 @@ export interface ChoicePresenterAtoms extends Atoms {
   form: React.ComponentType<FormProps>
   feedback?: React.ComponentType<FeedbackAtomProps>
   option: React.ComponentType<OptionAtomProps>
-  submitButton?: React.ComponentType<SubmitButtonProps>
+  stageButton?: React.ComponentType<StageButtonProps>
+  commitButton?: React.ComponentType<CommitButtonProps>
 }

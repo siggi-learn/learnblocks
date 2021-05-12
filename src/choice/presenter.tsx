@@ -127,12 +127,14 @@ export const ChoicePresenter: BlockPresenter<
             {...option}
           />
         ))}
-        {atoms.submitButton && (
-          <atoms.submitButton
-            disabled={!!remainingSelections}
+        {atoms.stageButton && state.status === "initial" && (
+          <atoms.stageButton disabled={!!remainingSelections} />
+        )}
+        {atoms.commitButton && state.status !== "initial" && (
+          <atoms.commitButton
+            disabled={state.status === "commited"}
             feedbackIsVisible={feedbackIsVisible}
             isCorrect={!!state.isCorrect}
-            status={state.status}
           />
         )}
       </atoms.form>

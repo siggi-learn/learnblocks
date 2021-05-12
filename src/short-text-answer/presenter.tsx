@@ -44,7 +44,7 @@ export const ShortTextAnswerPresenter: BlockPresenter<
 
   React.useEffect(() => onChange && onChange(state), [onChange, state])
 
-  const submitDisabled =
+  const stageDisabled =
     block.minAnswerLength !== undefined &&
     state.givenAnswer.length < block.minAnswerLength
 
@@ -116,12 +116,14 @@ export const ShortTextAnswerPresenter: BlockPresenter<
           status={state.status}
         />
         {!feedbackDisabled && <atoms.feedback state={state} block={block} />}
-        {atoms.button && (
-          <atoms.button
-            disabled={submitDisabled}
+        {atoms.stageButton && state.status === "initial" && (
+          <atoms.stageButton disabled={stageDisabled} />
+        )}
+        {atoms.commitButton && state.status !== "initial" && (
+          <atoms.commitButton
+            disabled={state.status === "commited"}
+            feedbackIsVisible={!feedbackDisabled}
             isCorrect={!!state.isCorrect}
-            feedbackDisabled={!!feedbackDisabled}
-            status={state.status}
           />
         )}
       </atoms.form>

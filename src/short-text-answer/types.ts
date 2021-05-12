@@ -35,13 +35,6 @@ type RangeInputProps = {
 /**
  * Presenter Atoms
  */
-type ButtonProps = {
-  disabled: boolean
-  isCorrect: boolean
-  status: PresenterState["status"]
-  feedbackDisabled: boolean
-}
-
 type FormProps = { onSubmit: (event: any) => void }
 
 type TextInputProps = {
@@ -59,6 +52,16 @@ type FeedbackProps = {
   state: ShortTextAnswerPresenterState
 }
 
+type StageButtonProps = {
+  disabled: boolean
+}
+
+type CommitButtonProps = {
+  disabled: boolean
+  feedbackIsVisible: boolean
+  isCorrect: boolean
+}
+
 /**
  * Editor and Presenter Atom interfaces
  */
@@ -69,8 +72,9 @@ export interface ShortTextAnswerEditorAtoms extends Atoms {
 }
 
 export interface ShortTextAnswerPresenterAtoms extends Atoms {
-  button?: React.ComponentType<ButtonProps>
   form: React.ComponentType<FormProps>
   textInput: React.ComponentType<TextInputProps>
   feedback: React.ComponentType<FeedbackProps>
+  stageButton?: React.ComponentType<StageButtonProps>
+  commitButton?: React.ComponentType<CommitButtonProps>
 }
