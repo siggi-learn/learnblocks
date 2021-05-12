@@ -128,7 +128,6 @@ export const RandomizeOptions = () => {
           atoms={choicePresenterAtoms}
           block={block}
           onChange={setState}
-          feedbackDisabled
           randomizeOptions
         />
       }
