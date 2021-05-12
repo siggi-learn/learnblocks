@@ -24,7 +24,8 @@ export const defaultChoiceState: ChoicePresenterState = {
 export const ChoicePresenter: BlockPresenter<
   ChoicePresenterAtoms,
   ChoiceBlock,
-  ChoicePresenterState
+  ChoicePresenterState,
+  { randomizeOptions?: boolean }
 > = ({
   atoms,
   block,
@@ -36,14 +37,12 @@ export const ChoicePresenter: BlockPresenter<
   stageRef,
   commitRef,
   setStateRef,
+  randomizeOptions = false,
 }) => {
-  // FIXME: as configuration or block prop?
-  const randomOrder = true
-
   const choiceOptions = React.useMemo(() => {
-    if (randomOrder) return shuffle(block.options)
+    if (randomizeOptions) return shuffle(block.options)
     return block.options
-  }, [block.options, randomOrder])
+  }, [block.options, randomizeOptions])
 
   const correctOptionIndices = React.useMemo(
     () => getCorrectOptionIndices(choiceOptions),

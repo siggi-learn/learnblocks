@@ -74,153 +74,65 @@ export const HiddenCorrectCount = () => {
   )
 }
 
-// export const FeedbackDisabled = () => {
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
-//   const [block, setBlock] = React.useState<ChoiceBlock>({
-//     type: "short-text-answer",
-//     correctAnswers: ["42"],
-//   })
+export const FeedbackDisabled = () => {
+  const [block, setBlock] = React.useState<ChoiceBlock>({
+    ...defaultChoiceBlock,
+  })
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
 
-//   return (
-//     <StoryGrid
-//       block={block}
-//       editor={
-//         <ChoiceEditor
-//           atoms={choiceEditorAtoms}
-//           block={block}
-//           onChange={setBlock}
-//         />
-//       }
-//       presenter={
-//         <ChoicePresenter
-//           atoms={choicePresenterAtoms}
-//           block={block}
-//           onChange={setState}
-//           feedbackDisabled
-//         />
-//       }
-//       presenterState={state}
-//     />
-//   )
-// }
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ChoiceEditor
+          atoms={choiceEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ChoicePresenter
+          atoms={choicePresenterAtoms}
+          block={block}
+          onChange={setState}
+          feedbackDisabled
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
 
-// export const WithInitialState = () => {
-//   const [block, setBlock] = React.useState<ChoiceBlock>({
-//     type: "short-text-answer",
-//     correctAnswers: ["42"],
-//   })
+export const RandomizeOptions = () => {
+  const [block, setBlock] = React.useState<ChoiceBlock>({
+    ...defaultChoiceBlock,
+  })
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
 
-//   const initialState: ChoicePresenterState = {
-//     givenAnswer: "42",
-//     isCorrect: true,
-//     isSampleSolution: true,
-//     status: "commited",
-//   }
-
-//   return (
-//     <StoryGrid
-//       block={block}
-//       editor={
-//         <ChoiceEditor
-//           atoms={choiceEditorAtoms}
-//           block={block}
-//           onChange={setBlock}
-//         />
-//       }
-//       presenter={
-//         <ChoicePresenter
-//           atoms={choicePresenterAtoms}
-//           block={block}
-//           initialState={initialState}
-//         />
-//       }
-//       presenterState={initialState}
-//     />
-//   )
-// }
-
-// export const ExternalStageAndCommit = () => {
-//   const stageRef = React.useRef<() => void>()
-//   const commitRef = React.useRef<() => void>()
-//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
-
-//   const handleClick = () => {
-//     if (stageRef.current) stageRef.current()
-//     if (commitRef.current) commitRef.current()
-//   }
-
-//   const { button, ...atomsWithoutButton } = choicePresenterAtoms
-
-//   return (
-//     <StoryGrid
-//       block={block}
-//       editor={
-//         <ChoiceEditor
-//           atoms={choiceEditorAtoms}
-//           block={block}
-//           onChange={setBlock}
-//         />
-//       }
-//       presenter={
-//         <>
-//           <ChoicePresenter
-//             atoms={atomsWithoutButton}
-//             block={block}
-//             onChange={setState}
-//             stageRef={stageRef}
-//             commitRef={commitRef}
-//           />
-//           <button onClick={handleClick}>I'm on the outside</button>
-//         </>
-//       }
-//       presenterState={state}
-//     />
-//   )
-// }
-
-// export const CustomFunctionality = () => {
-//   const setStateRef = React.useRef<
-//     (value: React.SetStateAction<ChoicePresenterState>) => void
-//   >()
-//   const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
-//   const [state, setState] = React.useState<ChoicePresenterState>(defaultChoiceState)
-
-//   const handleWasCorrectClick = () => {
-//     if (setStateRef.current)
-//       setStateRef.current((prev) => ({
-//         ...prev,
-//         isCorrect: true,
-//       }))
-//   }
-
-//   return (
-//     <StoryGrid
-//       block={block}
-//       editor={
-//         <ChoiceEditor
-//           atoms={choiceEditorAtoms}
-//           block={block}
-//           onChange={setBlock}
-//         />
-//       }
-//       presenter={
-//         <>
-//           <ChoicePresenter
-//             atoms={choicePresenterAtoms}
-//             block={block}
-//             onChange={setState}
-//             setStateRef={setStateRef}
-//           />
-//           {state.status === "staged" && !state.isCorrect && (
-//             <button onClick={handleWasCorrectClick}>
-//               My Answer was correct
-//             </button>
-//           )}
-//           {state.status === "initial" && "Answer me incorrectly!"}
-//         </>
-//       }
-//       presenterState={state}
-//     />
-//   )
-// }
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ChoiceEditor
+          atoms={choiceEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ChoicePresenter
+          atoms={choicePresenterAtoms}
+          block={block}
+          onChange={setState}
+          feedbackDisabled
+          randomizeOptions
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
