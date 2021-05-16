@@ -41,12 +41,12 @@ Example:
 
 ```JSON
 {
-  type: "choice",
-  hideCorrectCount: false,
-  options: [
-    { content: "yes", isCorrect: true },
-    { content: "no", isCorrect: true },
-    { content: "maybe", isCorrect: false },
+  "type": "choice",
+  "hideCorrectCount": false,
+  "options": [
+    { "content": "yes", "isCorrect": true },
+    { "content": "no", "isCorrect": true },
+    { "content": "maybe", "isCorrect": false },
   ],
 }
 ```
