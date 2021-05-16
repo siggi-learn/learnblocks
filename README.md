@@ -1,18 +1,32 @@
-# What's this?
+# Learnblocks
 
 Composable react components for the creation and display of digital learing
 content.
 
 # Goals
 
-Enable the creation of great digital learning content though:
+- simplify and accelerate the development of learning applications and authoring
+  tools
+- provide accessible, customizable and easy to use components
+- provide a concept/framework for building further components
+- provide great UX and DX
 
-- high quality components
-- composable (simple components)
-- great UX
-- accessibility
+# Installation
 
-...
+**Currently the project is in alpha. API changes are extremly likely.**
+
+```sh
+$ yarn add @learnblocks/core
+# or
+$ npm i @learnblocks/core
+```
+
+# Example
+
+- [Multiple Choice Presenter](https://codesandbox.io/s/learnblocks-choice-presenter-pgknv?file=/src/index.tsx)
+- [Multiple Choice Presenter with Custom Atoms](https://codesandbox.io/s/learnblocks-choice-presenter-custom-atoms-vvizo?file=/src/index.tsx)
+- Editor / Presenter Example (TODO)
+- Example for custom Atoms which add functionality (e.g. richtext)
 
 # Concept
 
@@ -20,35 +34,58 @@ Enable the creation of great digital learning content though:
 
 ### Block (Data)
 
-The whole concept of this library revolves around _Blocks_. A _Block_ is
-described by its type and an instance of a block is represented by a
-datastructure of that type.
+The whole concept of this library revolves around _Blocks_. A _Block_ is a
+datastructure which describes an element.
 
-### Atom
+Example:
 
-An _Atom_ is a react component that is used to compose the editor and presenter
-components (see below). The idea is, that you can simply swap the atoms without
-touching the actual editor and presenter. This:
-
-- makes learnblocks UI-Component agnostic (use components of your choice e.g.
-  Material UI, Chakra UI, ...).
-- allows to customize behaviour (swap plain-text-inputs with custom-inputs.
-  Enable Richtext, Latex etc.)
+```JSON
+{
+  type: "choice",
+  hideCorrectCount: false,
+  options: [
+    { content: "yes", isCorrect: true },
+    { content: "no", isCorrect: true },
+    { content: "maybe", isCorrect: false },
+  ],
+}
+```
 
 ### Editor
 
 An _Editor_ is a react component that takes a block of a certain type as an
-input and renders a Userinterface which allows the modification of the block. It
-must be composed of atoms.
+input and renders a UI which allows a user to modify the block.
 
 ### Presenter
 
 An Presenter is a react component that takes a block of a certain type as an
-input and renders a Userinterface which allows the interaction with the block.
-The Presenter has two callbacks: `onChange` and `onResult`. Both callbacks take
+input and renders a UI that allows to interact with the Block (e.g. answering a
+multiple-choice question).
+
+```
+ * (user is answering)       (show solution, state may be altered)    (interaction is completed)
+ *    [interaction]       -->              [staged]               -->         [commited]
+ *                        <--                 ⮠
+```
+
+A Presenter has three callbacks: `onChange`, `onStage` and `onCommit`. Each take
 the presenter state as an argument. The presenter state contains all the
 information to reinitialize the presenter and to determine if an interaction is
-completed (result).
+completed (commited).
+
+# How to contribute
+
+- Fix Bugs
+- Fix `TODO`s and `FIXME`s (see Code)
+- Write tests
+- Implement more Blocks
+  - Fill in the Blanks
+  - Feedback
+  - (static) Blocks like Text, Images, Video, Embeds
+  - What do **YOU** need? Be createive or draw inspiration from
+    [H5P](https://h5p.org/)
+- Improve default Atoms
+- Create new atoms (Maybe with Tailwind?)
 
 # Start Developing
 
@@ -56,6 +93,10 @@ Run `yarn start` to open a storybook containing the currently implemented
 learnblocks.
 
 ## Add a new component
+
+---
+
+## FIXME: Template is not up-to-date. Do not use.
 
 Run `yarn gen:pkg` and enter a name (lowercase) and a description for the
 component you'd like to implement. Run `yarn start` to start if it was not
@@ -65,5 +106,5 @@ component.
 
 # Attribution
 
-The structure and setup of this repository is mostly copied from the
+Parts of this repositories structure are inspired by the
 [chakra-ui](https://github.com/chakra-ui/chakra-ui/) project.
