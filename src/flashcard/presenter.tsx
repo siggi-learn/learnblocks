@@ -100,6 +100,7 @@ export const FlashcardPresenter: BlockPresenter<
       ) : (
         atoms.commitButton && (
           <atoms.commitButton
+            disabled={state.status === "commited"}
             onClick={handleCommit}
             isCorrect={!!state.isCorrect}
           />

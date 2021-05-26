@@ -45,6 +45,7 @@ type RateBarProps = {
 }
 
 type CommitButtonProps = {
+  disabled: boolean
   isCorrect: boolean
   onClick: () => void
 }
