@@ -39,14 +39,17 @@ export const ChoicePresenter: BlockPresenter<
   setStateRef,
   randomizeOptions = false,
 }) => {
-  const choiceOptions = React.useMemo(() => {
-    if (randomizeOptions) return shuffle(block.options)
-    return block.options
+  // Store the order in which the block.options are displayed.
+  // Use the block.options indices to reliably map the selected options back to the block.options.
+  const choiceIndices = React.useMemo(() => {
+    const indices = Array.from(block.options.keys())
+    if (randomizeOptions) return shuffle(indices)
+    return indices
   }, [block.options, randomizeOptions])
 
   const correctOptionIndices = React.useMemo(
-    () => getCorrectOptionIndices(choiceOptions),
-    [choiceOptions],
+    () => getCorrectOptionIndices(block.options),
+    [block.options],
   )
 
   // TODO: use reducer to handle state
@@ -118,13 +121,13 @@ export const ChoicePresenter: BlockPresenter<
         />
       )}
       <atoms.form onSubmit={handleSubmit}>
-        {choiceOptions.map((option, index) => (
+        {choiceIndices.map((index) => (
           <atoms.option
             key={index}
             feedbackIsVisible={feedbackIsVisible}
             isSelected={state.selectedOptionIndices.includes(index)}
             onClick={() => handleOptionClick(index)}
-            {...option}
+            {...block.options[index]}
           />
         ))}
         {atoms.stageButton && state.status === "initial" && (

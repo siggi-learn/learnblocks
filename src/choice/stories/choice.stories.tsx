@@ -135,3 +135,40 @@ export const RandomizeOptions = () => {
     />
   )
 }
+
+export const WithInitialState = () => {
+  const initialState: ChoicePresenterState = {
+    status: "initial",
+    selectedOptionIndices: [0, 1],
+  }
+
+  const [block, setBlock] = React.useState<ChoiceBlock>({
+    ...defaultChoiceBlock,
+  })
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ChoiceEditor
+          atoms={choiceEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ChoicePresenter
+          atoms={choicePresenterAtoms}
+          block={block}
+          initialState={initialState}
+          onChange={setState}
+          randomizeOptions
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
