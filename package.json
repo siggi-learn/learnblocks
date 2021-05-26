@@ -1,6 +1,6 @@
 {
   "name": "@learnblocks/core",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "Composable react components for the creation and display of digital learing content.",
   "publishConfig": {
     "access": "public"
@@ -12,11 +12,13 @@
     "dist"
   ],
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "tsc",
-    "build:watch": "watch 'yarn build && yalc push' ./src",
     "commit": "git-cz",
+    "gen:pkg": "ts-node scripts/plopfile.ts",
+    "prepublish": "yarn build",
     "start": "start-storybook -p 6006",
-    "gen:pkg": "ts-node scripts/plopfile.ts"
+    "watch:build": "watch 'yarn build && yalc push' ./src"
   },
   "repository": {
     "type": "git",
@@ -75,6 +77,7 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-test-renderer": "^17.0.1",
+    "rimraf": "^3.0.2",
     "storybook-addon-performance": "^0.13.0",
     "ts-jest": "26.4.4",
     "ts-node": "^9.1.1",
