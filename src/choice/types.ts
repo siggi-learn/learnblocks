@@ -45,6 +45,7 @@ type FeedbackAtomProps = {
 
 type OptionAtomProps = {
   content: string
+  disabled: boolean
   isCorrect: boolean
   isSelected: boolean
   onClick: () => void

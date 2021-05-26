@@ -27,6 +27,7 @@ const FeedbackAtom: ChoicePresenterAtoms["feedback"] = ({
 
 const OptionAtom: ChoicePresenterAtoms["option"] = ({
   content,
+  disabled,
   isCorrect,
   isSelected,
   feedbackIsVisible,
@@ -43,7 +44,7 @@ const OptionAtom: ChoicePresenterAtoms["option"] = ({
       <Form.Check id={id} type="checkbox">
         <Form.Check.Input
           checked={isSelected}
-          disabled={feedbackIsVisible}
+          disabled={disabled}
           readOnly
           onClick={onClick}
         />

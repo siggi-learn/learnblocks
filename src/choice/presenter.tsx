@@ -124,6 +124,7 @@ export const ChoicePresenter: BlockPresenter<
         {choiceIndices.map((index) => (
           <atoms.option
             key={index}
+            disabled={state.status !== "initial"}
             feedbackIsVisible={feedbackIsVisible}
             isSelected={state.selectedOptionIndices.includes(index)}
             onClick={() => handleOptionClick(index)}
