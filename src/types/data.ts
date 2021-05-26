@@ -3,7 +3,7 @@
  */
 
 export interface PresenterState {
-  status: "initial" | "staged" | "commited"
+  status: "initial" | "staged" | "committed"
   isCorrect?: boolean
   msToCommit?: number
 }

@@ -64,14 +64,14 @@ multiple-choice question).
 
 ```
  * (user is answering)       (show solution, state may be altered)    (interaction is completed)
- *    [interaction]       -->              [staged]               -->         [commited]
+ *    [interaction]       -->              [staged]               -->         [committed]
  *                        <--                 ⮠
 ```
 
 A Presenter has three callbacks: `onChange`, `onStage` and `onCommit`. Each take
 the presenter state as an argument. The presenter state contains all the
 information to reinitialize the presenter and to determine if an interaction is
-completed (commited).
+completed (committed).
 
 # How to contribute
 

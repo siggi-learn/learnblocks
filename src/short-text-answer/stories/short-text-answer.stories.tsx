@@ -90,7 +90,7 @@ export const WithInitialState = () => {
     givenAnswer: "42",
     isCorrect: true,
     isSampleSolution: true,
-    status: "commited",
+    status: "committed",
   }
 
   return (

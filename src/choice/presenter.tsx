@@ -3,7 +3,7 @@
  *
  * Presenter Lifecycle:
  * (user is answering)       (show solution, state may be altered)    (interaction is completed)
- *    [interaction]       -->              [staged]               -->         [commited]
+ *    [interaction]       -->              [staged]               -->         [committed]
  *                        <--                 ⮠
  */
 
@@ -88,7 +88,7 @@ export const ChoicePresenter: BlockPresenter<
     setState((prev) => {
       const newState: ChoicePresenterState = {
         ...prev,
-        status: "commited",
+        status: "committed",
       }
       if (onCommit) onCommit(newState)
 
@@ -136,7 +136,7 @@ export const ChoicePresenter: BlockPresenter<
         )}
         {atoms.commitButton && state.status !== "initial" && (
           <atoms.commitButton
-            disabled={state.status === "commited"}
+            disabled={state.status === "committed"}
             feedbackIsVisible={feedbackIsVisible}
             isCorrect={!!state.isCorrect}
           />

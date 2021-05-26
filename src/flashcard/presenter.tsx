@@ -3,7 +3,7 @@
  *
  * Presenter Lifecycle:
  * (user is answering)       (show solution, state may be altered)    (interaction is completed)
- *    [interaction]       -->              [staged]               -->         [commited]
+ *    [interaction]       -->              [staged]               -->         [committed]
  *                        <--                 ⮠
  */
 
@@ -71,7 +71,7 @@ export const FlashcardPresenter: BlockPresenter<
     setState((prev) => {
       const newState: FlashcardPresenterState = {
         ...prev,
-        status: "commited",
+        status: "committed",
       }
       if (onCommit) onCommit(newState)
 
@@ -100,7 +100,7 @@ export const FlashcardPresenter: BlockPresenter<
       ) : (
         atoms.commitButton && (
           <atoms.commitButton
-            disabled={state.status === "commited"}
+            disabled={state.status === "committed"}
             onClick={handleCommit}
             isCorrect={!!state.isCorrect}
           />
