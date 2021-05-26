@@ -37,13 +37,15 @@ const RateBar: FlashcardPresenterAtoms["rateBar"] = ({ disabled, onRate }) => (
 )
 
 const CommitButton: FlashcardPresenterAtoms["commitButton"] = ({
+  disabled,
   isCorrect,
   onClick,
 }) => (
   <Button
-    variant={isCorrect ? "success" : "danger"}
-    onClick={onClick}
     className="mt-4 w-100"
+    disabled={disabled}
+    onClick={onClick}
+    variant={isCorrect ? "success" : "danger"}
   >
     Commit
   </Button>
