@@ -57,7 +57,12 @@ export const ChoicePresenter: BlockPresenter<
     initialState || defaultChoiceState,
   )
 
-  React.useEffect(() => onChange && onChange(state), [onChange, state])
+  // Handle callbacks
+  React.useEffect(() => {
+    if (onChange) onChange(state)
+    if (onStage && state.status === "staged") onStage(state)
+    if (onCommit && state.status === "committed") onCommit(state)
+  }, [onChange, onStage, onCommit, state])
 
   const handleOptionClick = React.useCallback(
     (index: number) =>
@@ -68,33 +73,23 @@ export const ChoicePresenter: BlockPresenter<
     [],
   )
 
-  const handleStage = React.useCallback(() => {
-    setState((prev) => {
-      const newState: ChoicePresenterState = {
+  const handleStage = React.useCallback(
+    () =>
+      setState((prev) => ({
         ...prev,
         status: "staged",
         isCorrect: calcCorrect(
           prev.selectedOptionIndices,
           correctOptionIndices,
         ),
-      }
-      if (onStage) onStage(newState)
+      })),
+    [setState, correctOptionIndices],
+  )
 
-      return newState
-    })
-  }, [onStage, correctOptionIndices])
-
-  const handleCommit = React.useCallback(() => {
-    setState((prev) => {
-      const newState: ChoicePresenterState = {
-        ...prev,
-        status: "committed",
-      }
-      if (onCommit) onCommit(newState)
-
-      return newState
-    })
-  }, [onCommit])
+  const handleCommit = React.useCallback(
+    () => setState((prev) => ({ ...prev, status: "committed" })),
+    [setState],
+  )
 
   const handleSubmit = (event: any) => {
     event?.preventDefault()

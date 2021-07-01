@@ -43,6 +43,47 @@ export const Basic = () => {
   )
 }
 
+export const Callbacks = () => {
+  const [block, setBlock] = React.useState<ChoiceBlock>(defaultChoiceBlock)
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    defaultChoiceState,
+  )
+
+  const handleStage = React.useCallback(
+    (result: ChoicePresenterState) =>
+      alert(`staged with: ${JSON.stringify(result)}`),
+    [],
+  )
+  const handleCommit = React.useCallback(
+    (result: ChoicePresenterState) =>
+      alert(`commited with: ${JSON.stringify(result)}`),
+    [],
+  )
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ChoiceEditor
+          atoms={choiceEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ChoicePresenter
+          atoms={choicePresenterAtoms}
+          block={block}
+          onChange={setState}
+          onStage={handleStage}
+          onCommit={handleCommit}
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
+
 export const HiddenCorrectCount = () => {
   const [block, setBlock] = React.useState<ChoiceBlock>({
     ...defaultChoiceBlock,

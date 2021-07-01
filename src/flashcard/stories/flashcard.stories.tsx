@@ -44,3 +44,46 @@ export const Basic = () => {
     />
   )
 }
+
+export const Callbacks = () => {
+  const [block, setBlock] = React.useState<FlashcardBlock>(
+    defaultFlashcardBlock,
+  )
+  const [state, setState] = React.useState<FlashcardPresenterState>(
+    defaultFlashcardState,
+  )
+
+  const handleStage = React.useCallback(
+    (result: FlashcardPresenterState) =>
+      alert(`staged with: ${JSON.stringify(result)}`),
+    [],
+  )
+  const handleCommit = React.useCallback(
+    (result: FlashcardPresenterState) =>
+      alert(`commited with: ${JSON.stringify(result)}`),
+    [],
+  )
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <FlashcardEditor
+          atoms={flashcardEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <FlashcardPresenter
+          atoms={flashcardPresenterAtoms}
+          block={block}
+          onChange={setState}
+          onStage={handleStage}
+          onCommit={handleCommit}
+        />
+      }
+      presenterState={state}
+    />
+  )
+}

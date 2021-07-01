@@ -48,6 +48,49 @@ export const Basic = () => {
   )
 }
 
+export const Callbacks = () => {
+  const [block, setBlock] = React.useState<ShortTextAnswerBlock>(
+    defaultShortTextAnswerBlock,
+  )
+  const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
+    defaultShortTextAnswerState,
+  )
+
+  const handleStage = React.useCallback(
+    (result: ShortTextAnswerPresenterState) =>
+      alert(`staged with: ${JSON.stringify(result)}`),
+    [],
+  )
+  const handleCommit = React.useCallback(
+    (result: ShortTextAnswerPresenterState) =>
+      alert(`commited with: ${JSON.stringify(result)}`),
+    [],
+  )
+
+  return (
+    <StoryGrid
+      block={block}
+      editor={
+        <ShortTextAnswerEditor
+          atoms={shortTextAnswerEditorAtoms}
+          block={block}
+          onChange={setBlock}
+        />
+      }
+      presenter={
+        <ShortTextAnswerPresenter
+          atoms={shortTextAnswerPresenterAtoms}
+          block={block}
+          onStage={handleStage}
+          onCommit={handleCommit}
+          onChange={setState}
+        />
+      }
+      presenterState={state}
+    />
+  )
+}
+
 export const FeedbackDisabled = () => {
   const [state, setState] = React.useState<ShortTextAnswerPresenterState>(
     defaultShortTextAnswerState,

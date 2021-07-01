@@ -42,21 +42,23 @@ export const FlashcardPresenter: BlockPresenter<
     initialState || defaultFlashcardState,
   )
 
-  React.useEffect(() => onChange && onChange(state), [onChange, state])
+  React.useEffect(() => {
+    if (onChange) onChange(state)
+    if (onStage && state.status === "staged") onStage(state)
+    if (onCommit && state.status === "committed") onCommit(state)
+  }, [onChange, onStage, onCommit, state])
 
   const handleFlip = () => setState((p) => ({ ...p, isFlipped: !p.isFlipped }))
 
-  const handleStage = React.useCallback(() => {
-    setState((prev) => {
-      const newState: FlashcardPresenterState = {
-        ...prev,
-        status: "staged",
-      }
-      if (onStage) onStage(newState)
+  const handleStage = React.useCallback(
+    () => setState((prev) => ({ ...prev, status: "staged" })),
+    [setState],
+  )
 
-      return newState
-    })
-  }, [onStage])
+  const handleCommit = React.useCallback(
+    () => setState((prev) => ({ ...prev, status: "committed" })),
+    [setState],
+  )
 
   const handleRating = (rating: number) => {
     setState((p) => ({
@@ -66,18 +68,6 @@ export const FlashcardPresenter: BlockPresenter<
     }))
     handleStage()
   }
-
-  const handleCommit = React.useCallback(() => {
-    setState((prev) => {
-      const newState: FlashcardPresenterState = {
-        ...prev,
-        status: "committed",
-      }
-      if (onCommit) onCommit(newState)
-
-      return newState
-    })
-  }, [onCommit])
 
   if (stageRef) stageRef.current = handleStage
   if (commitRef) commitRef.current = handleCommit

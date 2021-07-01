@@ -42,7 +42,11 @@ export const ShortTextAnswerPresenter: BlockPresenter<
     initialState || defaultShortTextAnswerState,
   )
 
-  React.useEffect(() => onChange && onChange(state), [onChange, state])
+  React.useEffect(() => {
+    if (onChange) onChange(state)
+    if (onStage && state.status === "staged") onStage(state)
+    if (onCommit && state.status === "committed") onCommit(state)
+  }, [onChange, onStage, onCommit, state])
 
   const stageDisabled =
     block.minAnswerLength !== undefined &&
@@ -51,35 +55,18 @@ export const ShortTextAnswerPresenter: BlockPresenter<
   const handleAnswerChange = (givenAnswer: string) =>
     setState((prev) => ({ ...prev, givenAnswer }))
 
-  const handleStage = () => {
+  const handleStage = () =>
     setState((prev) => {
       const result = compareAnswers(
         block.correctAnswers,
         state.givenAnswer,
         block.typoDistanceMax,
       )
-      const newState: ShortTextAnswerPresenterState = {
-        ...prev,
-        ...result,
-        status: "staged",
-      }
-      if (onStage) onStage(newState)
-
-      return newState
+      return { ...prev, ...result, status: "staged" }
     })
-  }
 
-  const handleCommit = () => {
-    setState((prev) => {
-      const newState: ShortTextAnswerPresenterState = {
-        ...prev,
-        status: "committed",
-      }
-      if (onCommit) onCommit(newState)
-
-      return newState
-    })
-  }
+  const handleCommit = () =>
+    setState((prev) => ({ ...prev, status: "committed" }))
 
   const handleSubmit = (event: any) => {
     event?.preventDefault()
