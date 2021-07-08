@@ -82,7 +82,7 @@ completed (committed).
   - Fill in the Blanks
   - Feedback
   - (static) Blocks like Text, Images, Video, Embeds
-  - What do **YOU** need? Be createive or draw inspiration from
+  - Think about the components you need or draw inspiration from
     [H5P](https://h5p.org/)
 - Improve default Atoms
 - Create new atoms (Maybe with Tailwind?)
