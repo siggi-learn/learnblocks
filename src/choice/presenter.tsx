@@ -71,8 +71,6 @@ export const ChoicePresenter: BlockPresenter<
         }))
     }
 
-    console.log(handlers)
-
     return handlers
   }, [setState, choiceIndices])
 
