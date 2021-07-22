@@ -84,9 +84,9 @@ const CommitButtonAtom: ChoicePresenterAtoms["commitButton"] = ({
 
 export const choicePresenterAtoms: ChoicePresenterAtoms = {
   as: "div",
-  feedback: FeedbackAtom,
-  form: FormAtom,
-  option: OptionAtom,
-  stageButton: StageButtonAtom,
-  commitButton: CommitButtonAtom,
+  feedback: React.memo(FeedbackAtom),
+  form: React.memo(FormAtom),
+  option: React.memo(OptionAtom),
+  stageButton: React.memo(StageButtonAtom),
+  commitButton: React.memo(CommitButtonAtom),
 }

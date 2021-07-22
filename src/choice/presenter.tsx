@@ -39,6 +39,11 @@ export const ChoicePresenter: BlockPresenter<
   setStateRef,
   randomizeOptions = false,
 }) => {
+  // TODO: use reducer to handle state
+  const [state, setState] = React.useState<ChoicePresenterState>(
+    initialState || defaultChoiceState,
+  )
+
   // Store the order in which the block.options are displayed.
   // Use the block.options indices to reliably map the selected options back to the block.options.
   const choiceIndices = React.useMemo(() => {
@@ -52,10 +57,24 @@ export const ChoicePresenter: BlockPresenter<
     [block.options],
   )
 
-  // TODO: use reducer to handle state
-  const [state, setState] = React.useState<ChoicePresenterState>(
-    initialState || defaultChoiceState,
-  )
+  // Memoize all option ClickHandlers to reduce rerendering
+  const optionClickHandlers = React.useMemo(() => {
+    const handlers = {}
+    for (const index of choiceIndices) {
+      handlers[index] = () =>
+        setState((prev) => ({
+          ...prev,
+          selectedOptionIndices: toggleOption(
+            index,
+            prev.selectedOptionIndices,
+          ),
+        }))
+    }
+
+    console.log(handlers)
+
+    return handlers
+  }, [setState, choiceIndices])
 
   // Handle callbacks
   React.useEffect(() => {
@@ -63,15 +82,6 @@ export const ChoicePresenter: BlockPresenter<
     if (onStage && state.status === "staged") onStage(state)
     if (onCommit && state.status === "committed") onCommit(state)
   }, [onChange, onStage, onCommit, state])
-
-  const handleOptionClick = React.useCallback(
-    (index: number) => () =>
-      setState((prev) => ({
-        ...prev,
-        selectedOptionIndices: toggleOption(index, prev.selectedOptionIndices),
-      })),
-    [],
-  )
 
   const handleStage = React.useCallback(
     () =>
@@ -122,7 +132,7 @@ export const ChoicePresenter: BlockPresenter<
             disabled={state.status !== "initial"}
             feedbackIsVisible={feedbackIsVisible}
             isSelected={state.selectedOptionIndices.includes(index)}
-            onClick={handleOptionClick(index)}
+            onClick={optionClickHandlers[index]}
             {...block.options[index]}
           />
         ))}
