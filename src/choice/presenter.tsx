@@ -65,7 +65,7 @@ export const ChoicePresenter: BlockPresenter<
   }, [onChange, onStage, onCommit, state])
 
   const handleOptionClick = React.useCallback(
-    (index: number) =>
+    (index: number) => () =>
       setState((prev) => ({
         ...prev,
         selectedOptionIndices: toggleOption(index, prev.selectedOptionIndices),
@@ -122,7 +122,7 @@ export const ChoicePresenter: BlockPresenter<
             disabled={state.status !== "initial"}
             feedbackIsVisible={feedbackIsVisible}
             isSelected={state.selectedOptionIndices.includes(index)}
-            onClick={() => handleOptionClick(index)}
+            onClick={handleOptionClick(index)}
             {...block.options[index]}
           />
         ))}
