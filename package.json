@@ -1,19 +1,19 @@
 {
   "name": "@learnblocks/core",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "description": "Composable react components for the creation and display of digital learing content.",
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "commit": "git-cz",
     "gen:pkg": "ts-node scripts/plopfile.ts",
     "prepublish": "yarn build",

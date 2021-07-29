@@ -6,12 +6,12 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": ["es2020", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "outDir": "dist",
+    "outDir": "dist/esm",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -20,7 +20,7 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "esnext"
+    "target": "es5"
   },
   "include": ["src"],
   "exclude": ["node_modules"],
