@@ -40,6 +40,7 @@ type FormProps = { onSubmit: (event: any) => void }
 type FeedbackAtomProps = {
   feedbackIsVisible: boolean
   isCorrect: boolean
+  totalCorrectSelections: number | null
   remainingSelections: number | null
 }
 

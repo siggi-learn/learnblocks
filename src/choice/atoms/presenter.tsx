@@ -9,14 +9,17 @@ const FormAtom: ChoicePresenterAtoms["form"] = (props) => <Form {...props} />
 const FeedbackAtom: ChoicePresenterAtoms["feedback"] = ({
   feedbackIsVisible,
   isCorrect,
+  totalCorrectSelections,
   remainingSelections,
 }) => {
   let message = "Select one or multiple options"
 
   if (feedbackIsVisible) {
     message = isCorrect ? "Yeeees 💪" : "Noooo 🙈"
-  } else if (remainingSelections !== null) {
+  } else if (totalCorrectSelections !== null && remainingSelections !== null) {
     if (remainingSelections === 0) message = "Submit your answer"
+    else if (remainingSelections === totalCorrectSelections)
+      message = `Choose ${Math.abs(remainingSelections)}`
     else if (remainingSelections > 0)
       message = `Choose ${Math.abs(remainingSelections)} more`
     else message = `Choose ${Math.abs(remainingSelections)} less`

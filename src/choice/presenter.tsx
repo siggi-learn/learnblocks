@@ -110,9 +110,14 @@ export const ChoicePresenter: BlockPresenter<
   if (setStateRef) setStateRef.current = setState
 
   const feedbackIsVisible = state.status !== "initial" && !feedbackDisabled
-  const remainingSelections = block.hideCorrectCount
-    ? null
-    : correctOptionIndices.length - state.selectedOptionIndices.length
+
+  let totalCorrectSelections = null
+  let remainingSelections = null
+  if (!block.hideCorrectCount) {
+    totalCorrectSelections = correctOptionIndices.length
+    remainingSelections =
+      totalCorrectSelections - state.selectedOptionIndices.length
+  }
 
   return (
     <atoms.as>
@@ -120,6 +125,7 @@ export const ChoicePresenter: BlockPresenter<
         <atoms.feedback
           feedbackIsVisible={feedbackIsVisible}
           isCorrect={!!state.isCorrect}
+          totalCorrectSelections={totalCorrectSelections}
           remainingSelections={remainingSelections}
         />
       )}
