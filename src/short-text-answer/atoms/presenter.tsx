@@ -1,4 +1,3 @@
-import classNames from "classnames"
 import * as React from "react"
 import { ShortTextAnswerPresenterAtoms } from "../types"
 
@@ -33,11 +32,7 @@ const FeedbackAtom: ShortTextAnswerPresenterAtoms["feedback"] = ({
   block,
   state,
 }) => (
-  <div
-    className={classNames("my-2", {
-      invisible: state.status === "initial",
-    })}
-  >
+  <div>
     {state.withTypo && `You meant "${state.matchedAnswer}"? `}
     {state.isCorrect ? "Correct 🎉" : "Wrong 😖"}
     {!state.isSampleSolution &&
