@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Form } from "react-bootstrap"
 import { ShortTextAnswerEditorAtoms } from "../types"
 
 const SampleSolutionInputAtom: ShortTextAnswerEditorAtoms["sampleSolutionInput"] = ({
@@ -10,7 +9,7 @@ const SampleSolutionInputAtom: ShortTextAnswerEditorAtoms["sampleSolutionInput"]
     onChange(e.currentTarget.value)
 
   return (
-    <Form.Control
+    <input
       type="text"
       placeholder="Correct answer"
       onChange={handleChange}
@@ -28,15 +27,18 @@ const MinAnswerLengthInput: ShortTextAnswerEditorAtoms["minAnswerLengthInput"] =
     onChange(parseInt(e.currentTarget.value, 10))
 
   return (
-    <Form.Group controlId="minimalAnswerLength">
-      <Form.Label>Minimal answer length?</Form.Label>
-      <Form.Control
-        type="range"
-        max={10}
-        onChange={handleChange}
-        defaultValue={defaultValue}
-      />
-    </Form.Group>
+    <div>
+      <label htmlFor="minimalAnswerLength">
+        Minimal answer length?
+        <input
+          type="range"
+          id="minimalAnswerLength"
+          max={10}
+          onChange={handleChange}
+          defaultValue={defaultValue}
+        />
+      </label>
+    </div>
   )
 }
 
@@ -48,17 +50,18 @@ const TypoDistanceInputAtom: ShortTextAnswerEditorAtoms["typoDistanceInput"] = (
     onChange(parseInt(e.currentTarget.value, 10))
 
   return (
-    <Form.Group controlId="typos">
-      <Form.Label>
+    <div>
+      <label htmlFor="typos">
         How many typos are allowed (levenshtein distance)?
-      </Form.Label>
-      <Form.Control
-        type="range"
-        max={10}
-        onChange={handleChange}
-        defaultValue={defaultValue}
-      />
-    </Form.Group>
+        <input
+          id="typos"
+          type="range"
+          max={10}
+          onChange={handleChange}
+          defaultValue={defaultValue}
+        />
+      </label>
+    </div>
   )
 }
 

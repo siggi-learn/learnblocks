@@ -1,14 +1,13 @@
 import classNames from "classnames"
 import * as React from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
 import { ShortTextAnswerPresenterAtoms } from "../types"
 
 const StageButtonAtom: ShortTextAnswerPresenterAtoms["stageButton"] = ({
   disabled,
 }) => (
-  <Button type="submit" disabled={disabled} variant="success" className="w-100">
+  <button type="submit" disabled={disabled} className="w-100">
     Check my Answer
-  </Button>
+  </button>
 )
 
 const CommitButtonAtom: ShortTextAnswerPresenterAtoms["commitButton"] = ({
@@ -16,22 +15,18 @@ const CommitButtonAtom: ShortTextAnswerPresenterAtoms["commitButton"] = ({
   feedbackIsVisible,
   isCorrect,
 }) => {
-  const variant = feedbackIsVisible && !isCorrect ? "danger" : "success"
+  let message = "Commit"
+  if (feedbackIsVisible) message = isCorrect ? "Nice!" : "Awww"
 
   return (
-    <Button
-      type="submit"
-      disabled={disabled}
-      variant={variant}
-      className="w-100"
-    >
-      Commit
-    </Button>
+    <button type="submit" disabled={disabled} className="w-100">
+      {message}
+    </button>
   )
 }
 
 const FormAtom: ShortTextAnswerPresenterAtoms["form"] = (props) => (
-  <Form {...props} />
+  <form {...props} />
 )
 
 const FeedbackAtom: ShortTextAnswerPresenterAtoms["feedback"] = ({
@@ -63,42 +58,34 @@ const TextInputAtom: ShortTextAnswerPresenterAtoms["textInput"] = ({
     onChange(e.currentTarget.value)
 
   return (
-    <Row className="mb-2">
-      <Col>
-        <Form.Control
+    <div>
+      <div>
+        <input
           type="text"
           defaultValue={defaultValue}
           disabled={status !== "initial"}
           placeholder="Your answer"
           onChange={handleChange}
         />
-      </Col>
+      </div>
       {(dontKnowEnabled || manualCorrectEnabled) && (
-        <Col md={4}>
+        <div>
           {dontKnowEnabled && (
-            <Button
-              onClick={handleDontKnow}
-              variant="outline-warning"
-              className="w-100"
-            >
+            <button onClick={handleDontKnow} className="w-100">
               Dunno
               <span role="img" aria-label="thinking">
                 🤔
               </span>
-            </Button>
+            </button>
           )}
           {manualCorrectEnabled && (
-            <Button
-              onClick={handleManualCorrect}
-              variant="dark"
-              className="w-100"
-            >
+            <button onClick={handleManualCorrect} className="w-100">
               Was correct
-            </Button>
+            </button>
           )}
-        </Col>
+        </div>
       )}
-    </Row>
+    </div>
   )
 }
 

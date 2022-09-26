@@ -1,10 +1,8 @@
-import classNames from "classnames"
 import { uniqueId } from "lodash"
 import * as React from "react"
-import { Button, Form } from "react-bootstrap"
 import { ChoicePresenterAtoms } from "../types"
 
-const FormAtom: ChoicePresenterAtoms["form"] = (props) => <Form {...props} />
+const FormAtom: ChoicePresenterAtoms["form"] = (props) => <form {...props} />
 
 const FeedbackAtom: ChoicePresenterAtoms["feedback"] = ({
   feedbackIsVisible,
@@ -38,32 +36,29 @@ const OptionAtom: ChoicePresenterAtoms["option"] = ({
 }) => {
   const { current: id } = React.useRef(uniqueId("option-"))
   const correctlySelected = isCorrect === isSelected
-  const classes = classNames({
-    "text-success": feedbackIsVisible && correctlySelected,
-    "text-danger": feedbackIsVisible && !correctlySelected,
-  })
+
   return (
     <div className="py-1">
-      <Form.Check id={id} type="checkbox">
-        <Form.Check.Input
-          checked={isSelected}
-          disabled={disabled}
-          readOnly
-          onClick={onClick}
-        />
-        <Form.Check.Label className={classes}>{content}</Form.Check.Label>
-        <span aria-label="Correctly Selected" className="font-weight-bold">
-          {feedbackIsVisible && correctlySelected && " ✓"}
-        </span>
-      </Form.Check>
+      <input
+        id={id}
+        type="checkbox"
+        checked={isSelected}
+        disabled={disabled}
+        readOnly
+        onClick={onClick}
+      />
+      <label htmlFor={id}>{content}</label>
+      <span aria-label="Correctly Selected" className="font-weight-bold">
+        {feedbackIsVisible && correctlySelected && " ✓"}
+      </span>
     </div>
   )
 }
 
 const StageButtonAtom: ChoicePresenterAtoms["stageButton"] = ({ disabled }) => (
-  <Button type="submit" disabled={disabled} variant="success" className="w-100">
+  <button type="submit" disabled={disabled} className="w-100">
     Check my Answer
-  </Button>
+  </button>
 )
 
 const CommitButtonAtom: ChoicePresenterAtoms["commitButton"] = ({
@@ -71,17 +66,15 @@ const CommitButtonAtom: ChoicePresenterAtoms["commitButton"] = ({
   feedbackIsVisible,
   isCorrect,
 }) => {
-  const variant = feedbackIsVisible && !isCorrect ? "danger" : "success"
+  let message = "Commit"
+  if (feedbackIsVisible) {
+    message = isCorrect ? "Nice" : "Awwww"
+  }
 
   return (
-    <Button
-      type="submit"
-      disabled={disabled}
-      variant={variant}
-      className="w-100"
-    >
-      Commit
-    </Button>
+    <button type="submit" disabled={disabled} className="w-100">
+      {message}
+    </button>
   )
 }
 

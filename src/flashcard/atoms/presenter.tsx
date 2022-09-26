@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Button, ButtonGroup } from "react-bootstrap"
 import { FlashcardPresenterAtoms } from "../types"
 
 const Card: FlashcardPresenterAtoms["card"] = ({
@@ -11,8 +10,14 @@ const Card: FlashcardPresenterAtoms["card"] = ({
   return (
     <button
       onClick={onFlip}
-      className="cursor-pointer rounded-lg shadow-sm bg-light border d-block w-100"
-      style={{ minHeight: "300px", fontSize: "2rem" }}
+      style={{
+        cursor: "pointer",
+        borderRadius: "10px",
+        background: "#ddd",
+        width: "100%",
+        minHeight: "300px",
+        fontSize: "2rem",
+      }}
     >
       {isFlipped ? contentBack : contentFront}
     </button>
@@ -22,17 +27,17 @@ const Card: FlashcardPresenterAtoms["card"] = ({
 const RateBar: FlashcardPresenterAtoms["rateBar"] = ({ disabled, onRate }) => (
   <div className="mt-4">
     <div className="font-italic">Rate your Answer</div>
-    <ButtonGroup aria-label="Rate your answer" className="w-100">
-      <Button disabled={disabled} variant="danger" onClick={() => onRate(0)}>
+    <div aria-label="Rate your answer" className="w-100">
+      <button disabled={disabled} onClick={() => onRate(0)}>
         Bad
-      </Button>
-      <Button disabled={disabled} variant="warning" onClick={() => onRate(70)}>
+      </button>
+      <button disabled={disabled} onClick={() => onRate(70)}>
         Alright
-      </Button>
-      <Button disabled={disabled} variant="success" onClick={() => onRate(100)}>
+      </button>
+      <button disabled={disabled} onClick={() => onRate(100)}>
         Perfect
-      </Button>
-    </ButtonGroup>
+      </button>
+    </div>
   </div>
 )
 
@@ -41,14 +46,9 @@ const CommitButton: FlashcardPresenterAtoms["commitButton"] = ({
   isCorrect,
   onClick,
 }) => (
-  <Button
-    className="mt-4 w-100"
-    disabled={disabled}
-    onClick={onClick}
-    variant={isCorrect ? "success" : "danger"}
-  >
-    Commit
-  </Button>
+  <button disabled={disabled} onClick={onClick}>
+    {isCorrect ? "Nice" : "Commit"}
+  </button>
 )
 
 export const flashcardPresenterAtoms: FlashcardPresenterAtoms = {

@@ -1,19 +1,19 @@
 import * as React from "react"
-import { Form } from "react-bootstrap"
 import { FlashcardEditorAtoms } from "../types"
 
 const InputFront: FlashcardEditorAtoms["inputFront"] = ({
   defaultValue,
   onChange,
 }) => {
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    event,
+  ) => {
     const content = event.currentTarget.value
     onChange(content)
   }
 
   return (
-    <Form.Control
-      as="textarea"
+    <textarea
       defaultValue={defaultValue}
       className="mb-2"
       onChange={handleChange}
@@ -27,14 +27,15 @@ const InputBack: FlashcardEditorAtoms["inputBack"] = ({
   defaultValue,
   onChange,
 }) => {
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    event,
+  ) => {
     const content = event.currentTarget.value
     onChange(content)
   }
 
   return (
-    <Form.Control
-      as="textarea"
+    <textarea
       defaultValue={defaultValue}
       onChange={handleChange}
       rows={3}

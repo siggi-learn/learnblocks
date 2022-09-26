@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Button, Form } from "react-bootstrap"
 import { ChoiceEditorAtoms } from "../types"
 
 const OptionFormAtom: ChoiceEditorAtoms["optionForm"] = ({
@@ -15,19 +14,20 @@ const OptionFormAtom: ChoiceEditorAtoms["optionForm"] = ({
 
   return (
     <div className="d-flex align-items-center py-1">
-      <Form.Check
+      <input
+        type="checkbox"
         checked={option.isCorrect}
         onClick={handleCorrectToggle}
         readOnly
       />
-      <Form.Control
+      <input
         type="text"
         value={option.content}
         onChange={handleContentChange}
       />
-      <Button className="ml-2" onClick={onDelete} variant="danger">
+      <button className="ml-2" onClick={onDelete}>
         Delete
-      </Button>
+      </button>
     </div>
   )
 }
@@ -35,9 +35,9 @@ const OptionFormAtom: ChoiceEditorAtoms["optionForm"] = ({
 const AppendOptionButton: ChoiceEditorAtoms["appendOptionButton"] = ({
   onClick,
 }) => (
-  <Button variant="outline-success" onClick={onClick} className="w-100 mt-2">
+  <button onClick={onClick} className="w-100 mt-2">
     Add Option
-  </Button>
+  </button>
 )
 
 export const choiceEditorAtoms: ChoiceEditorAtoms = {
